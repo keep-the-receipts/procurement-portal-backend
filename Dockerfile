@@ -23,8 +23,8 @@ RUN cd /tmp \
 
 COPY . /app
 
-ARG USER_ID
-ARG GROUP_ID
+ARG USER_ID=1001
+ARG GROUP_ID=1001
 
 RUN addgroup --gid $GROUP_ID --system django \
     && adduser --system --uid $USER_ID --gid $GROUP_ID django
