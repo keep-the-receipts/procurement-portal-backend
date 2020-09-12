@@ -1,7 +1,7 @@
 {
   "name": "procurement_portal_backend",
   "version": "1.0.0",
-  "description": "A portal for searching procurement records"",
+  "description": "A portal for searching procurement records",
   "main": "assets/js/index.js",
   "license": "MIT",
   "private": true,

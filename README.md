@@ -1,5 +1,5 @@
-[![codecov](https://codecov.io/gh/South-Africa-Government-Procurement/procurement_portal_backend/branch/master/graph/badge.svg)](https://codecov.io/gh/South-Africa-Government-Procurement/procurement_portal_backend/)
-[![Build Status](https://travis-ci.org/South-Africa-Government-Procurement/procurement_portal_backend.png)](https://travis-ci.org/South-Africa-Government-Procurement/procurement_portal_backend)
+[![codecov](https://codecov.io/gh/South-Africa-Government-Procurement/procurement-portal-backend/branch/master/graph/badge.svg)](https://codecov.io/gh/South-Africa-Government-Procurement/procurement-portal-backend/)
+[![Build Status](https://travis-ci.org/South-Africa-Government-Procurement/procurement-portal-backend.png)](https://travis-ci.org/South-Africa-Government-Procurement/procurement-portal-backend)
 
 Procurement portal backend
 ===============================
@@ -11,7 +11,7 @@ Complete project setup
 - [ ] Initialise a git repository in this directory
   - [ ] Explicitly add directories needed for collectstatic to work: `git add -f staticfiles/.gitkeep procurement_portal_backend/static/.gitkeep`
 - [ ] Create a repository on [GitHub](https://github.com/OpenUpSA) and add as a remote to this repository
-  - e.g. `git remote add origin git@github.com:OpenUpSA/procurement_portal_backend.git`
+  - e.g. `git remote add origin git@github.com:OpenUpSA/procurement-portal-backend.git`
 - [ ] Enable Continuous Integration checks for the GitHub Repository at [travis-ci.org](https://travis-ci.org)
   - [ ] Enable periodic builds, e.g. weekly, to detect when dependency changes break your builds before they hurt you.
 - [ ] Enable code coverage reporting for the project at [codecov.io](https://codecov.io)
