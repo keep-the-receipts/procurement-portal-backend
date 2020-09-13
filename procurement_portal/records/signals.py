@@ -1,4 +1,4 @@
-from procurement_portal import models
+from . import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -9,3 +9,4 @@ def handle_irm_snapshot_post_save(
 ):
     if created:
         instance.dataset.current_version = instance
+        instance.dataset.save()

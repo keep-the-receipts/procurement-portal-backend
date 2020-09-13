@@ -1,13 +1,15 @@
 from django.db import models
 from datetime import datetime
+from django_extensions.db.models import TimeStampedModel
 
 
+## FIXME remove when redoing migrations
 class UpdateTimestampsMixin:
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
 
-class Repository(models.Model, UpdateTimestampsMixin):
+class Repository(TimeStampedModel):
     name = models.CharField(max_length=250)
     description = models.TextField()
 
@@ -15,7 +17,7 @@ class Repository(models.Model, UpdateTimestampsMixin):
         return self.name
 
 
-class Dataset(models.Model, UpdateTimestampsMixin):
+class Dataset(TimeStampedModel):
     repository = models.ForeignKey("Repository", on_delete=models.CASCADE)
     current_version = models.ForeignKey(
         "DatasetVersion",
@@ -43,16 +45,17 @@ def file_path(instance, filename):
     )
 
 
-class DatasetVersion(models.Model, UpdateTimestampsMixin):
+class DatasetVersion(TimeStampedModel):
     dataset = models.ForeignKey("Dataset", on_delete=models.CASCADE)
     description = models.TextField()
     file = models.FileField(upload_to=file_path)
 
     def __str__(self):
-        return f"{self.dataset.name} ({ self.updated })"
+        return f"{self.dataset.name} ({ self.created })"
 
 
-class PurchaseRecord(models.Model, UpdateTimestampsMixin):
+# models.PurchaseRecord.objects.filter(dataset_version=F('dataset_version__dataset__current_version'))
+class PurchaseRecord(TimeStampedModel):
     dataset_version = models.ForeignKey("DatasetVersion", on_delete=models.CASCADE)
     supplier_name = models.CharField(max_length=500)
     amount = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)

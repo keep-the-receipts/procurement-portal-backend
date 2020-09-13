@@ -1,0 +1,131 @@
+[
+{
+  "model": "records.repository",
+  "pk": 1,
+  "fields": {
+    "created": "2020-09-13T11:14:13.881Z",
+    "modified": "2020-09-13T11:14:13.886Z",
+    "name": "PSAM/OpenUp and volunteers",
+    "description": "stuff"
+  }
+},
+{
+  "model": "records.repository",
+  "pk": 2,
+  "fields": {
+    "created": "2020-09-13T11:14:13.881Z",
+    "modified": "2020-09-13T11:14:13.886Z",
+    "name": "News Corp",
+    "description": "their data"
+  }
+},
+{
+  "model": "records.dataset",
+  "pk": 6,
+  "fields": {
+    "created": "2020-09-13T11:14:13.807Z",
+    "modified": "2020-09-13T11:15:11.230Z",
+    "repository": 1,
+    "current_version": 4,
+    "name": "North West",
+    "description": "stuff",
+    "provenance": "more",
+    "online_source_url": null,
+    "trusted_archive_url": null,
+    "enabled": true
+  }
+},
+{
+  "model": "records.dataset",
+  "pk": 7,
+  "fields": {
+    "created": "2020-09-13T11:14:13.807Z",
+    "modified": "2020-09-13T11:14:13.829Z",
+    "repository": 1,
+    "current_version": 3,
+    "name": "mpumalanga",
+    "description": "aaa",
+    "provenance": "bbb",
+    "online_source_url": null,
+    "trusted_archive_url": null,
+    "enabled": true
+  }
+},
+{
+  "model": "records.datasetversion",
+  "pk": 2,
+  "fields": {
+    "created": "2020-09-13T11:14:13.837Z",
+    "modified": "2020-09-13T11:14:13.860Z",
+    "dataset": 6,
+    "description": "lala",
+    "file": "dataset-uploads/North_West-2020-09-13T102245.245292.csv"
+  }
+},
+{
+  "model": "records.datasetversion",
+  "pk": 3,
+  "fields": {
+    "created": "2020-09-13T11:14:13.837Z",
+    "modified": "2020-09-13T11:14:13.860Z",
+    "dataset": 7,
+    "description": "ccc",
+    "file": "dataset-uploads/mpumalanga-2020-09-13T104500.607884.csv"
+  }
+},
+{
+  "model": "records.datasetversion",
+  "pk": 4,
+  "fields": {
+    "created": "2020-09-13T11:15:11.203Z",
+    "modified": "2020-09-13T11:15:11.203Z",
+    "dataset": 6,
+    "description": "more",
+    "file": "dataset-uploads/North_West-2020-09-13T111511.203705.csv"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 1,
+  "fields": {
+    "created": "2020-09-13T11:17:36.726Z",
+    "modified": "2020-09-13T11:17:36.726Z",
+    "dataset_version": 4,
+    "supplier_name": "nw later",
+    "amount": "123.00"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 2,
+  "fields": {
+    "created": "2020-09-13T11:17:45.990Z",
+    "modified": "2020-09-13T11:17:45.990Z",
+    "dataset_version": 2,
+    "supplier_name": "nw earlier",
+    "amount": "234.00"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 3,
+  "fields": {
+    "created": "2020-09-13T11:17:59.015Z",
+    "modified": "2020-09-13T11:17:59.015Z",
+    "dataset_version": 3,
+    "supplier_name": "mp",
+    "amount": "345.00"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 4,
+  "fields": {
+    "created": "2020-09-13T11:23:02.661Z",
+    "modified": "2020-09-13T11:23:02.661Z",
+    "dataset_version": 4,
+    "supplier_name": "nw later 2",
+    "amount": "456.00"
+  }
+}
+]
