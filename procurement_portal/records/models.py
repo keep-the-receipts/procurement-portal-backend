@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import datetime
 from django_extensions.db.models import TimeStampedModel
+from django.contrib.postgres.search import SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
 
 
 ## FIXME remove when redoing migrations
@@ -59,6 +61,10 @@ class PurchaseRecord(TimeStampedModel):
     dataset_version = models.ForeignKey("DatasetVersion", on_delete=models.CASCADE)
     supplier_name = models.CharField(max_length=500)
     amount = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    full_text_search = SearchVectorField(null=True)
+
+    class Meta:
+        indexes = [GinIndex(fields=["full_text_search"])]
 
     def __str__(self):
         return self.supplier_name

@@ -23,6 +23,7 @@ djangorestframework = "==3.11.0"
 gevent = "==1.4.0"
 django-storages = "==1.10"
 boto3 = "==1.14.60"
+django-filter = "==2.3.0"
 
 [requires]
 python_version = "3.7"
