@@ -3,12 +3,7 @@ from datetime import datetime
 from django_extensions.db.models import TimeStampedModel
 from django.contrib.postgres.search import SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
-
-
-## FIXME remove when redoing migrations
-class UpdateTimestampsMixin:
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+from .validators import validate_file_extension
 
 
 class Repository(TimeStampedModel):
@@ -47,15 +42,6 @@ def file_path(instance, filename):
     )
 
 
-class DatasetVersion(TimeStampedModel):
-    dataset = models.ForeignKey("Dataset", on_delete=models.CASCADE)
-    description = models.TextField()
-    file = models.FileField(upload_to=file_path)
-
-    def __str__(self):
-        return f"{self.dataset.name} ({ self.created })"
-
-
 class PurchaseRecord(TimeStampedModel):
     dataset_version = models.ForeignKey("DatasetVersion", on_delete=models.CASCADE)
     buyer_name = models.CharField(max_length=500)
@@ -82,3 +68,12 @@ class PurchaseRecord(TimeStampedModel):
 
     def __str__(self):
         return self.supplier_name
+
+
+class DatasetVersion(TimeStampedModel):
+    dataset = models.ForeignKey("Dataset", on_delete=models.CASCADE)
+    description = models.TextField()
+    file = models.FileField(upload_to=file_path, validators=[validate_file_extension])
+
+    def __str__(self):
+        return f"{self.dataset.name} ({ self.created })"
