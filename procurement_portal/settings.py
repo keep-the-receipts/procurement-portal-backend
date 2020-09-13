@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -160,3 +161,19 @@ logging.config.dictConfig(
 TAG_MANAGER_ENABLED = env.bool("TAG_MANAGER_ENABLED", True)
 if TAG_MANAGER_ENABLED:
     TAG_MANAGER_CONTAINER_ID = env("TAG_MANAGER_CONTAINER_ID")
+
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME")
+AWS_DEFAULT_ACL = "public-read"
+AWS_BUCKET_ACL = "public-read"
+AWS_AUTO_CREATE_BUCKET = True
+AWS_S3_ENDPOINT_URL = env.str("AWS_S3_ENDPOINT_URL", None)
+AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", None)
+AWS_S3_SECURE_URLS = env.bool("AWS_S3_SECURE_URLS", True)
+AWS_S3_CUSTOM_DOMAIN = env.str("AWS_S3_CUSTOM_DOMAIN", None)
+# "S3Boto3Storage does not correctly handle duplicate filenames in their default configuration."
+# https://docs.wagtail.io/en/v2.7.1/advanced_topics/deploying.html
+AWS_S3_FILE_OVERWRITE = False
