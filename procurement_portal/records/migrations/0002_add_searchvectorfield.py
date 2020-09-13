@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     ]
 
     migration = '''
-        CREATE TRIGGER records_purchaserecord_content_search_update BEFORE INSERT OR UPDATE
+        CREATE TRIGGER full_text_search_content_update BEFORE INSERT OR UPDATE
         ON records_purchaserecord FOR EACH ROW EXECUTE PROCEDURE
         tsvector_update_trigger(
             full_text_search, 'pg_catalog.english',
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
     '''
 
     reverse_migration = '''
-        DROP TRIGGER records_purchaserecord_full_text_search ON records_purchaserecord;
+        DROP TRIGGER full_text_search_content_update ON records_purchaserecord;
     '''
 
     operations = [

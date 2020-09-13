@@ -56,11 +56,25 @@ class DatasetVersion(TimeStampedModel):
         return f"{self.dataset.name} ({ self.created })"
 
 
-# models.PurchaseRecord.objects.filter(dataset_version=F('dataset_version__dataset__current_version'))
 class PurchaseRecord(TimeStampedModel):
     dataset_version = models.ForeignKey("DatasetVersion", on_delete=models.CASCADE)
+    buyer_name = models.CharField(max_length=500)
     supplier_name = models.CharField(max_length=500)
-    amount = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    amount_value_rands = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    items_description = models.TextField(null=True, blank=True)
+    items_quantity = models.TextField(null=True, blank=True)
+    director_names = models.TextField(null=True, blank=True)
+    director_surnames = models.TextField(null=True, blank=True)
+    director_names_and_surnames = models.TextField(null=True, blank=True)
+    company_registration_number = models.CharField(max_length=500, null=True, blank=True)
+    central_supplier_database_number = models.CharField(max_length=500, null=True, blank=True)
+    implementation_location = models.CharField(max_length=500, null=True, blank=True)
+    implementation_location_province = models.CharField(max_length=500, null=True, blank=True)
+    implementation_location_district_municipality = models.CharField(max_length=500, null=True, blank=True)
+    implementation_location_local_municipality = models.CharField(max_length=500, null=True, blank=True)
+    implementation_location_facility = models.CharField(max_length=500, null=True, blank=True)
+    implementation_location_other = models.CharField(max_length=500, null=True, blank=True)
+
     full_text_search = SearchVectorField(null=True)
 
     class Meta:
