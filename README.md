@@ -9,7 +9,7 @@ Complete project setup
 ----------------------
 
 - [x] Initialise a git repository in this directory
-  - [x] Explicitly add directories needed for collectstatic to work: `git add -f staticfiles/.gitkeep procurement_portal_backend/static/.gitkeep`
+  - [x] Explicitly add directories needed for collectstatic to work: `git add -f staticfiles/.gitkeep procurement_portal/static/.gitkeep`
 - [x] Create a repository on [GitHub](https://github.com/OpenUpSA) and add as a remote to this repository
   - e.g. `git remote add origin git@github.com:OpenUpSA/procurement-portal-backend.git`
 - [ ] Enable Continuous Integration checks for the GitHub Repository at [travis-ci.org](https://travis-ci.org)
@@ -25,7 +25,7 @@ Project Layout
 
 ### Django
 
-Apps go in the project directory `procurement_portal_backend`
+Apps go in the project directory `procurement_portal`
 
 
 ### Python

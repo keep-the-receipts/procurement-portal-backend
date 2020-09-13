@@ -15,17 +15,17 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}procurement_portal_backend{% endblock %}</title>
+    <title>{% block title %}procurement_portal{% endblock %}</title>
     {% block meta %}
     <meta property="description" content="{% block description %}A portal for searching procurement records"{% endblock %}" />
-    <meta name="twitter:title" content="{% block twitter_title %}procurement_portal_backend{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}procurement_portal{% endblock %}">
     <meta name="twitter:description" content="{% block twitter_description %}A portal for searching procurement records"{% endblock %}">
     <meta name="twitter:card" content="summary">
-    <meta property="og:title" content="{% block og_title %}procurement_portal_backend{% endblock %}" />
+    <meta property="og:title" content="{% block og_title %}procurement_portal{% endblock %}" />
     <meta property="og:description" content="{% block og_description %}A portal for searching procurement records"{% endblock %}" />
     {% endblock %}
 
-    <link rel="stylesheet" href="{% static "scss/procurement_portal_backend.css" %}">
+    <link rel="stylesheet" href="{% static "scss/procurement_portal.css" %}">
   </head>
   <body>
     {% if TAG_MANAGER_ENABLED %} 
@@ -37,6 +37,6 @@
 
     {% block content %}{% endblock %}
 
-    <script src="{% static "js/procurement_portal_backend.js" %}" async></script>
+    <script src="{% static "js/procurement_portal.js" %}" async></script>
   </body>
 </html>

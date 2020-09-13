@@ -6,6 +6,6 @@ from . import views
 
 urlpatterns = [
     path("", views.Index.as_view(), name="index"),
-    path("records", include("procurement_portal_backend.records.urls"),),
+    path("records", include("procurement_portal.records.urls"),),
     path("admin/", admin.site.urls),
 ]
