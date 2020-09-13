@@ -60,7 +60,7 @@ class PurchaseRecord(TimeStampedModel):
     dataset_version = models.ForeignKey("DatasetVersion", on_delete=models.CASCADE)
     buyer_name = models.CharField(max_length=500)
     supplier_name = models.CharField(max_length=500)
-    amount_value_rands = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    amount_value_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
     items_description = models.TextField(null=True, blank=True)
     items_quantity = models.TextField(null=True, blank=True)
     director_names = models.TextField(null=True, blank=True)
