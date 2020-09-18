@@ -33,7 +33,7 @@ USER django
 
 WORKDIR /app
 
-RUN yarn && yarn build
+# RUN yarn && yarn build
 
 EXPOSE 5000
 CMD /app/bin/start.sh
