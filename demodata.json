@@ -1,0 +1,40 @@
+[
+{
+  "model": "records.repository",
+  "pk": 1,
+  "fields": {
+    "created": "2020-09-13T11:14:13.881Z",
+    "modified": "2020-09-13T11:14:13.886Z",
+    "name": "PSAM/OpenUp and volunteers",
+    "description": "stuff"
+  }
+},
+{
+  "model": "records.repository",
+  "pk": 2,
+  "fields": {
+    "created": "2020-09-13T11:14:13.881Z",
+    "modified": "2020-09-13T11:14:13.886Z",
+    "name": "News Corp",
+    "description": "their data"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$0saS0QTbT24V$nsuFrajwIZy/7FMJjLxz5ptVXL0MG3swspkrDMdUdYQ=",
+    "last_login": "2020-09-13T11:32:19.207Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@localhost",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-09-13T11:32:11.072Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
