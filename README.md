@@ -1,5 +1,5 @@
 [![codecov](https://codecov.io/gh/South-Africa-Government-Procurement/procurement-portal-backend/branch/master/graph/badge.svg)](https://codecov.io/gh/South-Africa-Government-Procurement/procurement-portal-backend/)
-[![Build Status](https://travis-ci.org/South-Africa-Government-Procurement/procurement-portal-backend.png)](https://travis-ci.org/South-Africa-Government-Procurement/procurement-portal-backend)
+[![Build Status](https://travis-ci.com/South-Africa-Government-Procurement/procurement-portal-backend.png)](https://travis-ci.com/South-Africa-Government-Procurement/procurement-portal-backend)
 
 Procurement portal backend
 ===============================
@@ -12,10 +12,10 @@ Complete project setup
   - [x] Explicitly add directories needed for collectstatic to work: `git add -f staticfiles/.gitkeep procurement_portal/static/.gitkeep`
 - [x] Create a repository on [GitHub](https://github.com/OpenUpSA) and add as a remote to this repository
   - e.g. `git remote add origin git@github.com:OpenUpSA/procurement-portal-backend.git`
-- [ ] Enable Continuous Integration checks for the GitHub Repository at [travis-ci.org](https://travis-ci.org)
+- [x] Enable Continuous Integration checks for the GitHub Repository at [travis-ci.org](https://travis-ci.org)
   - [ ] Enable periodic builds, e.g. weekly, to detect when dependency changes break your builds before they hurt you.
-- [ ] Enable code coverage reporting for the project at [codecov.io](https://codecov.io)
-  - [ ] Enable GitHub integration - it automatically configures Travis-CI and shows coverage diffs in pull requests
+- [x] Enable code coverage reporting for the project at [codecov.io](https://codecov.io)
+  - [x] Enable GitHub integration - it automatically configures Travis-CI and shows coverage diffs in pull requests
   - [ ] Verify that you see coverage % on the Commits tab for the project. If it's just zero, check for errors by clicking a commit item.
 - [ ] Clean up this checklist - your project is set up now and you don't need it any more.
 
