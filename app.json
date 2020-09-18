@@ -4,7 +4,7 @@
       "addons": ["heroku-postgresql:hobby-dev"],
       "env": {
         "TAG_MANAGER_ENABLED": "False"
-      }
+      },
       "scripts": {
         "postdeploy": "python manage.py migrate && python manage.py loaddata demodata"
       }
