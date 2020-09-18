@@ -179,3 +179,12 @@ AWS_S3_CUSTOM_DOMAIN = env.str("AWS_S3_CUSTOM_DOMAIN", None)
 # "S3Boto3Storage does not correctly handle duplicate filenames in their default configuration."
 # https://docs.wagtail.io/en/v2.7.1/advanced_topics/deploying.html
 AWS_S3_FILE_OVERWRITE = False
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "DEFAULT_PERMISSION_CLASSES": [],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 20,
+}
