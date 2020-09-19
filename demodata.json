@@ -1,5 +1,23 @@
 [
 {
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$0saS0QTbT24V$nsuFrajwIZy/7FMJjLxz5ptVXL0MG3swspkrDMdUdYQ=",
+    "last_login": "2020-09-18T16:48:57.362Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@localhost",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-09-13T11:32:11.072Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "records.repository",
   "pk": 1,
   "fields": {
@@ -20,21 +38,266 @@
   }
 },
 {
-  "model": "auth.user",
+  "model": "records.dataset",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$150000$0saS0QTbT24V$nsuFrajwIZy/7FMJjLxz5ptVXL0MG3swspkrDMdUdYQ=",
-    "last_login": "2020-09-13T11:32:19.207Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "admin@localhost",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2020-09-13T11:32:11.072Z",
-    "groups": [],
-    "user_permissions": []
+    "created": "2020-09-19T18:41:14.310Z",
+    "modified": "2020-09-19T18:41:15.101Z",
+    "repository": 1,
+    "current_version": 1,
+    "name": "Demo dataset 1",
+    "description": "This has some test data with company numbers",
+    "provenance": "We totally made this up",
+    "online_source_url": "http://www.example.com",
+    "trusted_archive_url": "http://archive.org/web/12345/example.com",
+    "enabled": true
+  }
+},
+{
+  "model": "records.dataset",
+  "pk": 2,
+  "fields": {
+    "created": "2020-09-19T18:43:05.032Z",
+    "modified": "2020-09-19T18:43:05.079Z",
+    "repository": 1,
+    "current_version": 2,
+    "name": "Demo dataset 2",
+    "description": "This has only the essential fields",
+    "provenance": "We also made this up",
+    "online_source_url": "http://www.example.com/other",
+    "trusted_archive_url": "http://this.is/really/important",
+    "enabled": true
+  }
+},
+{
+  "model": "records.dataset",
+  "pk": 3,
+  "fields": {
+    "created": "2020-09-19T18:44:15.965Z",
+    "modified": "2020-09-19T18:44:16.020Z",
+    "repository": 2,
+    "current_version": 3,
+    "name": "Demo dataset 3",
+    "description": "This adds the rest of the columns",
+    "provenance": "We super made this up",
+    "online_source_url": null,
+    "trusted_archive_url": null,
+    "enabled": true
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 1,
+  "fields": {
+    "created": "2020-09-19T18:41:15.072Z",
+    "modified": "2020-09-19T18:41:15.072Z",
+    "dataset_version": 1,
+    "buyer_name": "Eastern Cape Department of Health",
+    "supplier_name": "Fred\u2019s meds",
+    "amount_value_zar": "123456.00",
+    "items_description": null,
+    "items_quantity": null,
+    "director_names": "Fred",
+    "director_surnames": "Bloggs",
+    "director_names_and_surnames": null,
+    "company_registration_number": "1234567890",
+    "central_supplier_database_number": null,
+    "implementation_location": null,
+    "implementation_location_province": null,
+    "implementation_location_district_municipality": "That district",
+    "implementation_location_local_municipality": null,
+    "implementation_location_facility": null,
+    "implementation_location_other": "This hospital",
+    "full_text_search": "'1234567890':9 'blogg':11 'cape':5 'depart':6 'district':13 'eastern':4 'fred':1,10 'health':8 'hospit':15 'med':3"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 2,
+  "fields": {
+    "created": "2020-09-19T18:41:15.073Z",
+    "modified": "2020-09-19T18:41:15.073Z",
+    "dataset_version": 1,
+    "buyer_name": "Eastern Cape Department of Health",
+    "supplier_name": "Joe\u2019s Shoppe",
+    "amount_value_zar": "234567.00",
+    "items_description": null,
+    "items_quantity": null,
+    "director_names": "Joe",
+    "director_surnames": "Smith",
+    "director_names_and_surnames": null,
+    "company_registration_number": "2345678901",
+    "central_supplier_database_number": null,
+    "implementation_location": null,
+    "implementation_location_province": null,
+    "implementation_location_district_municipality": "That district",
+    "implementation_location_local_municipality": null,
+    "implementation_location_facility": null,
+    "implementation_location_other": "This hospital",
+    "full_text_search": "'2345678901':9 'cape':5 'depart':6 'district':13 'eastern':4 'health':8 'hospit':15 'joe':1,10 'shopp':3 'smith':11"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 3,
+  "fields": {
+    "created": "2020-09-19T18:43:05.075Z",
+    "modified": "2020-09-19T18:43:05.075Z",
+    "dataset_version": 2,
+    "buyer_name": "Gauteng Department of Health",
+    "supplier_name": "Fred\u2019s meds",
+    "amount_value_zar": "34567.00",
+    "items_description": null,
+    "items_quantity": null,
+    "director_names": null,
+    "director_surnames": null,
+    "director_names_and_surnames": null,
+    "company_registration_number": null,
+    "central_supplier_database_number": null,
+    "implementation_location": null,
+    "implementation_location_province": null,
+    "implementation_location_district_municipality": null,
+    "implementation_location_local_municipality": null,
+    "implementation_location_facility": null,
+    "implementation_location_other": null,
+    "full_text_search": "'depart':5 'fred':1 'gauteng':4 'health':7 'med':3"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 4,
+  "fields": {
+    "created": "2020-09-19T18:43:05.075Z",
+    "modified": "2020-09-19T18:43:05.075Z",
+    "dataset_version": 2,
+    "buyer_name": "Gauteng Department of Social Development",
+    "supplier_name": "Peter\u2019s pills",
+    "amount_value_zar": "456789.00",
+    "items_description": null,
+    "items_quantity": null,
+    "director_names": null,
+    "director_surnames": null,
+    "director_names_and_surnames": null,
+    "company_registration_number": null,
+    "central_supplier_database_number": null,
+    "implementation_location": null,
+    "implementation_location_province": null,
+    "implementation_location_district_municipality": null,
+    "implementation_location_local_municipality": null,
+    "implementation_location_facility": null,
+    "implementation_location_other": null,
+    "full_text_search": "'depart':5 'develop':8 'gauteng':4 'peter':1 'pill':3 'social':7"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 5,
+  "fields": {
+    "created": "2020-09-19T18:44:16.015Z",
+    "modified": "2020-09-19T18:44:16.015Z",
+    "dataset_version": 3,
+    "buyer_name": "National Department of Health",
+    "supplier_name": "Cat\u2019s catheters",
+    "amount_value_zar": "567890.00",
+    "items_description": "Some of this, some of that",
+    "items_quantity": "123 456 boxes",
+    "director_names": "",
+    "director_surnames": "",
+    "director_names_and_surnames": "Catherine Cross",
+    "company_registration_number": "",
+    "central_supplier_database_number": "",
+    "implementation_location": null,
+    "implementation_location_province": "Western Cape",
+    "implementation_location_district_municipality": "City of Cape Town",
+    "implementation_location_local_municipality": "City of Cape Town",
+    "implementation_location_facility": "That there hospital",
+    "implementation_location_other": "Woodstock",
+    "full_text_search": "'123':30 '456':31 'box':32 'cape':12,19,23 'cat':1 'catherin':8 'cathet':3 'citi':10,17 'cross':9 'depart':5 'health':7 'hospit':16 'nation':4 'town':13,20 'western':22 'woodstock':21"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 6,
+  "fields": {
+    "created": "2020-09-19T18:44:16.015Z",
+    "modified": "2020-09-19T18:44:16.015Z",
+    "dataset_version": 3,
+    "buyer_name": "National Department of Social Development",
+    "supplier_name": "Cat\u2019s catheters",
+    "amount_value_zar": "678901.00",
+    "items_description": "Lots of things\nSometimes on different rows\nLike this",
+    "items_quantity": "12\n1000\n5 bags",
+    "director_names": "",
+    "director_surnames": "",
+    "director_names_and_surnames": "Catherine Cross\nFred Jones",
+    "company_registration_number": "",
+    "central_supplier_database_number": "",
+    "implementation_location": null,
+    "implementation_location_province": "Western Cape",
+    "implementation_location_district_municipality": "City of Cape Town",
+    "implementation_location_local_municipality": "City of Cape Town",
+    "implementation_location_facility": "That there hospital",
+    "implementation_location_other": "Woodstock",
+    "full_text_search": "'1000':37 '12':36 '5':38 'bag':39 'cape':15,22,26 'cat':1 'catherin':9 'cathet':3 'citi':13,20 'cross':10 'depart':5 'develop':8 'differ':32 'fred':11 'hospit':19 'jone':12 'like':34 'lot':27 'nation':4 'row':33 'social':7 'sometim':30 'thing':29 'town':16,23 'western':25 'woodstock':24"
+  }
+},
+{
+  "model": "records.purchaserecord",
+  "pk": 7,
+  "fields": {
+    "created": "2020-09-19T18:44:16.016Z",
+    "modified": "2020-09-19T18:44:16.016Z",
+    "dataset_version": 3,
+    "buyer_name": "National Department of Social Development",
+    "supplier_name": "Kate\u2019s dates",
+    "amount_value_zar": "789012345.00",
+    "items_description": "here is a realy really long line of things that have been supplied. It is so long that it wil most likely wrap",
+    "items_quantity": "100",
+    "director_names": "Fred",
+    "director_surnames": "Bloggs",
+    "director_names_and_surnames": "",
+    "company_registration_number": "5678901234",
+    "central_supplier_database_number": "6789012345",
+    "implementation_location": null,
+    "implementation_location_province": "Eastern Cape",
+    "implementation_location_district_municipality": "Some district",
+    "implementation_location_local_municipality": "Some local",
+    "implementation_location_facility": "",
+    "implementation_location_other": "A city name",
+    "full_text_search": "'100':45 '5678901234':10 '6789012345':9 'blogg':12 'cape':21 'citi':18 'date':3 'depart':5 'develop':8 'district':14 'eastern':20 'fred':11 'kate':1 'like':43 'line':28 'local':16 'long':27,38 'name':19 'nation':4 'reali':25 'realli':26 'social':7 'suppli':34 'thing':30 'wil':41 'wrap':44"
+  }
+},
+{
+  "model": "records.datasetversion",
+  "pk": 1,
+  "fields": {
+    "created": "2020-09-19T18:41:14.321Z",
+    "modified": "2020-09-19T18:41:14.321Z",
+    "dataset": 1,
+    "description": "This is the first version",
+    "file": "dataset-uploads/Demo_dataset_1-2020-09-19T184114.321272.csv"
+  }
+},
+{
+  "model": "records.datasetversion",
+  "pk": 2,
+  "fields": {
+    "created": "2020-09-19T18:43:05.033Z",
+    "modified": "2020-09-19T18:43:05.033Z",
+    "dataset": 2,
+    "description": "First version",
+    "file": "dataset-uploads/Demo_dataset_2-2020-09-19T184305.033356.csv"
+  }
+},
+{
+  "model": "records.datasetversion",
+  "pk": 3,
+  "fields": {
+    "created": "2020-09-19T18:44:15.966Z",
+    "modified": "2020-09-19T18:44:15.966Z",
+    "dataset": 3,
+    "description": "First version",
+    "file": "dataset-uploads/Demo_dataset_3-2020-09-19T184415.967019.csv"
   }
 }
 ]
