@@ -10,30 +10,30 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','{{ TAG_MANAGER_CONTAINER_ID }}');</script>
     <!-- End Google Tag Manager -->
-    {% endif %} 
+    {% endif %}
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}procurement_portal{% endblock %}</title>
     {% block meta %}
-    <meta property="description" content="{% block description %}A portal for searching procurement records"{% endblock %}" />
+    <meta property="description" content="{% block description %}A portal for searching procurement records{% endblock %}" />
     <meta name="twitter:title" content="{% block twitter_title %}procurement_portal{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}A portal for searching procurement records"{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}A portal for searching procurement records{% endblock %}">
     <meta name="twitter:card" content="summary">
     <meta property="og:title" content="{% block og_title %}procurement_portal{% endblock %}" />
-    <meta property="og:description" content="{% block og_description %}A portal for searching procurement records"{% endblock %}" />
+    <meta property="og:description" content="{% block og_description %}A portal for searching procurement records{% endblock %}" />
     {% endblock %}
 
     <link rel="stylesheet" href="{% static "scss/procurement_portal.css" %}">
   </head>
   <body>
-    {% if TAG_MANAGER_ENABLED %} 
+    {% if TAG_MANAGER_ENABLED %}
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ TAG_MANAGER_CONTAINER_ID }}"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    {% endif %} 
+    {% endif %}
 
     {% block content %}{% endblock %}
 
