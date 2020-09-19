@@ -11,39 +11,39 @@ PHRASE_RE = re.compile(r'"([^"]*)("|$)')
 
 class FacetFieldFilter(BaseFilterBackend):
     def filter_queryset(self, request, queryset, view):
-        field_set = set(view.facet_filter_fields)
 
         filters = {}
-        for field in field_set:
-            values = request.GET.getlist(field, None)
+        for field in view.facet_filter_fields:
+            values = request.query_params.getlist(field, None)
             if values:
                 filters[field] = values
         print(filters)
 
-        for field in field_set:
+        for field in view.facet_filter_fields:
+            print(field)
             other_filters = filters.copy()
+            print(other_filters)
             if field in other_filters:
                 del other_filters[field]
+            print(other_filters)
 
             other_filtered_qs = queryset
-            for field, values in other_filters.items():
-                other_filtered_qs = other_filtered_qs.filter(**{f"{field}__in": values})
+            for filter_field, values in other_filters.items():
+                other_filtered_qs = other_filtered_qs.filter(**{f"{filter_field}__in": values})
 
             view.facets[field] = (
-                queryset.values(label=F(field))
+                other_filtered_qs.values(label=F(field))
                 .annotate(count=Count("*"))
                 .order_by("-count", "label")
                 .all()
             )
+            print(view.facets)
 
         for field, values in filters.items():
             queryset = queryset.filter(**{f"{field}__in": values})
 
         return queryset
 
-    def to_html(self, request, queryset, view):
-        fields = FullTextSearchForm().as_p()
-        return mark_safe(f'<form action="" method="get">{ fields }</form>')
 
 
 class FullTextSearchFilter(BaseFilterBackend):
