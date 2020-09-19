@@ -3,9 +3,21 @@ from rest_framework.filters import BaseFilterBackend
 from django import forms
 from django.utils.safestring import mark_safe
 import re
+from django.db.models import Count, F
 
 
 PHRASE_RE = re.compile(r'"([^"]*)("|$)')
+
+
+class FacetFieldFilter(BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        for field in view.facet_filter_fields:
+            view.facets[field] = (
+                queryset.values(label=F(field))
+                .annotate(count=Count("*"))
+                .order_by("-count", "label").all()
+            )
+        return queryset
 
 
 class FullTextSearchFilter(BaseFilterBackend):
