@@ -25,6 +25,12 @@ class PurchaseRecordView(drf_generics.ListAPIView):
         "implementation_location_other",
         "dataset_version__dataset__name",
     ]
+    full_text_filter_fields = [
+        "supplier_full_text",
+        "directors_full_text",
+        "description_full_text",
+        "procurement_method_full_text",
+    ]
 
     def __init__(self, *args, **kwargs):
         super(PurchaseRecordView, self).__init__(*args, **kwargs)
