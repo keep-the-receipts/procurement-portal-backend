@@ -87,7 +87,6 @@
 },
 {
   "model": "records.purchaserecord",
-  "pk": 1,
   "fields": {
     "created": "2020-09-19T18:41:15.072Z",
     "modified": "2020-09-19T18:41:15.072Z",
@@ -113,7 +112,6 @@
 },
 {
   "model": "records.purchaserecord",
-  "pk": 2,
   "fields": {
     "created": "2020-09-19T18:41:15.073Z",
     "modified": "2020-09-19T18:41:15.073Z",
@@ -139,7 +137,6 @@
 },
 {
   "model": "records.purchaserecord",
-  "pk": 3,
   "fields": {
     "created": "2020-09-19T18:43:05.075Z",
     "modified": "2020-09-19T18:43:05.075Z",
@@ -165,7 +162,6 @@
 },
 {
   "model": "records.purchaserecord",
-  "pk": 4,
   "fields": {
     "created": "2020-09-19T18:43:05.075Z",
     "modified": "2020-09-19T18:43:05.075Z",
@@ -191,7 +187,6 @@
 },
 {
   "model": "records.purchaserecord",
-  "pk": 5,
   "fields": {
     "created": "2020-09-19T18:44:16.015Z",
     "modified": "2020-09-19T18:44:16.015Z",
@@ -217,7 +212,6 @@
 },
 {
   "model": "records.purchaserecord",
-  "pk": 6,
   "fields": {
     "created": "2020-09-19T18:44:16.015Z",
     "modified": "2020-09-19T18:44:16.015Z",
@@ -243,7 +237,6 @@
 },
 {
   "model": "records.purchaserecord",
-  "pk": 7,
   "fields": {
     "created": "2020-09-19T18:44:16.016Z",
     "modified": "2020-09-19T18:44:16.016Z",
