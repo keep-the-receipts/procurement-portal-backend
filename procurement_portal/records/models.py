@@ -3,6 +3,7 @@ from datetime import datetime
 from django_extensions.db.models import TimeStampedModel
 from django.contrib.postgres.search import SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
+from django.utils.html import format_html_join, format_html
 from .validators import validate_file_extension
 
 
@@ -99,10 +100,78 @@ class PurchaseRecord(TimeStampedModel):
         return self.supplier_name
 
 
+EXCLUDED_FIELDS = {'id', 'created', 'modified', 'dataset_version', 'full_text_search'}
+
 class DatasetVersion(TimeStampedModel):
     dataset = models.ForeignKey("Dataset", on_delete=models.CASCADE)
     description = models.TextField()
     file = models.FileField(upload_to=file_path, validators=[validate_file_extension])
 
+    _counted_fields = None
+
     def __str__(self):
         return f"{self.dataset.name} ({ self.created })"
+
+    def record_count(self):
+        return self.purchaserecord_set.count()
+
+    def _count_purchase_record_fields(self):
+        if self._counted_fields is None:
+            # Intentionally not using Counter here, because we're recording
+            # missing fields too, with setdefault
+            count = dict()
+            for record in self.purchaserecord_set.all():
+                for f in record._meta.fields:
+                    field = f.name
+                    if field in EXCLUDED_FIELDS:
+                        continue
+                    count.setdefault(field, 0)
+                    if getattr(record, field):
+                        count[field] += 1
+            self._counted_fields = count
+        return self._counted_fields
+
+    def matched_columns(self):
+        return tuple(sorted(k for k, v in self._count_purchase_record_fields().items() if v != 0))
+
+    def missing_columns(self):
+        return tuple(sorted(k for k, v in self._count_purchase_record_fields().items() if v == 0))
+
+    def column_stats(self):
+        return self._count_purchase_record_fields()
+
+    def column_stats_html(self):
+        inner_content = format_html_join(
+            '\n',
+            """
+            <tr>
+                <td>
+                    {}
+                </td>
+                <td>
+                    {}
+                </td>
+            </tr>
+            """,
+            ((k, v) for k, v in sorted(self._count_purchase_record_fields().items(), key=lambda x: x[0])))
+        return format_html(
+            """
+            <table>
+              <tr>
+                <th>Field Name</th>
+                <th>Count</th>
+              </tr>
+              {}
+            </table>
+            """,
+            inner_content
+        )
+
+    def matched_columns_count(self):
+        return len(self.matched_columns())
+
+    def missing_columns_count(self):
+        return len(self.missing_columns())
+
+    def total_columns_count(self):
+        return len(self._count_purchase_record_fields())

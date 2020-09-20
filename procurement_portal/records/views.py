@@ -1,7 +1,7 @@
 from django.views import generic
 from rest_framework import generics as drf_generics
 from django_filters.rest_framework import DjangoFilterBackend
-from .serializers import PurchaseRecordSerializer
+from .serializers import DatasetSerializer, DatasetVersionSerializer, PurchaseRecordSerializer
 from . import models
 from .filters import FullTextSearchFilter, FacetFieldFilter
 from django.db.models import F
@@ -70,3 +70,15 @@ class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
     renderer_classes = (XLSXRenderer,)
     pagination_class = None
     filename = 'purchase-records.xlsx'
+
+
+class DatasetVersionView(drf_generics.ListAPIView):
+    queryset = models.DatasetVersion.objects.filter(pk=F("dataset__current_version"))
+    serializer_class = DatasetVersionSerializer
+    # filter_backends = [DjangoFilterBackend, FullTextSearchFilter]
+
+
+class DatasetView(drf_generics.ListAPIView):
+    queryset = models.Dataset.objects.all()
+    serializer_class = DatasetSerializer
+    # filter_backends = [DjangoFilterBackend, FullTextSearchFilter]

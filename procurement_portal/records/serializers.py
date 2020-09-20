@@ -39,3 +39,26 @@ class PurchaseRecordSerializer(serializers.ModelSerializer):
             "payment_period",
             "bbbee_status",
         ]
+
+class DatasetVersionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.DatasetVersion
+        fields = [
+            'id',
+            'description',
+            'file',
+            'dataset',
+            'column_stats',
+            'matched_columns',
+            'missing_columns',
+            'matched_columns_count',
+            'missing_columns_count',
+            'total_columns_count',
+        ]
+
+class DatasetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Dataset
+        fields = '__all__'
+
+    current_version = DatasetVersionSerializer()

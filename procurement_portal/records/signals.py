@@ -1,4 +1,5 @@
 from . import models
+from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import tablib
@@ -25,6 +26,15 @@ def handle_dataset_version_post_save(
         dataset.append_col([instance.pk]*len(dataset), header='dataset_version')
         resource = PurchaseRecordResource()
         resource.import_data(dataset, raise_errors=True)
+
+        counts = instance._count_purchase_record_fields()
+        missing_fields = [
+            field
+            for field in {'buyer_name', 'supplier_name', 'amount_value_zar'}
+            if counts[field] == 0
+        ]
+        if missing_fields:
+            raise ValidationError('Missing field(s): {}'.format(', '.join(missing_fields)))
 
         instance.dataset.current_version = instance
         instance.dataset.save()
