@@ -11,7 +11,9 @@ install:
 script:
   - docker-compose run --rm web yarn build
   - docker-compose run --rm web python manage.py collectstatic --no-input
-  - docker-compose run --rm web bin/wait-for-postgres.sh coverage run --source=procurement_portal manage.py test
+  - docker-compose run --rm web bin/wait-for-postgres.sh manage.py migrate
+  - docker-compose run --rm web loaddata demodata
+  - docker-compose run --rm web coverage run --source=procurement_portal manage.py test
 
 
 after_script:
