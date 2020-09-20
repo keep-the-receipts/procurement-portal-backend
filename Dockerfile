@@ -14,12 +14,13 @@ RUN apt-get update \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pip install pipenv
+RUN pip install poetry \
+    && poetry env use system
 
 # Copy, then install requirements before copying rest for a requirements cache layer.
-COPY Pipfile* /tmp/
+COPY pyproject.toml poetry.lock /tmp/
 RUN cd /tmp \
-    && pipenv install --system --dev
+    && poetry install
 
 COPY . /app
 
