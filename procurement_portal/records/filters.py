@@ -68,41 +68,35 @@ class FullTextSearchFilter(BaseFilterBackend):
     """
 
     def filter_queryset(self, request, queryset, view):
+        filtered_queryset = queryset
 
-        query = request.query_params.get("basic_web_search", None)
+        for field in view.full_text_filter_fields:
 
-        if query:
+            query = request.query_params.getlist(field, None)
+            if query:
 
-            phrases = [p[0].strip() for p in PHRASE_RE.findall(query)]
-            phrases = [p for p in phrases if p]
-            terms = PHRASE_RE.sub("", query).strip()
+                phrases = [p[0].strip() for p in PHRASE_RE.findall(query[0])]
+                phrases = [p for p in phrases if p]
+                terms = PHRASE_RE.sub("", query[0]).strip()
 
-            if terms:
-                compound_statement = SearchQuery(terms)
-
-            if phrases:
                 if terms:
-                    compound_statement = compound_statement & SearchQuery(
-                        phrases[0], search_type="phrase"
-                    )
-                else:
-                    compound_statement = SearchQuery(phrases[0], search_type="phrase")
+                    compound_statement = SearchQuery(terms)
 
-                for phrase in phrases[1:]:
-                    compound_statement = compound_statement & SearchQuery(
-                        phrase, search_type="phrase"
-                    )
-            if terms or phrases:
-                print(compound_statement)
+                if phrases:
+                    if terms:
+                        compound_statement = compound_statement & SearchQuery(
+                            phrases[0], search_type="phrase"
+                        )
+                    else:
+                        compound_statement = SearchQuery(phrases[0], search_type="phrase")
 
-                queryset = queryset.filter(full_text_search=compound_statement)
+                    for phrase in phrases[1:]:
+                        compound_statement = compound_statement & SearchQuery(
+                            phrase, search_type="phrase"
+                        )
+                if terms or phrases:
+                    print(compound_statement)
 
-        return queryset
+                    filtered_queryset = filtered_queryset.filter(**{field: compound_statement})
 
-    def to_html(self, request, queryset, view):
-        fields = FullTextSearchForm().as_p()
-        return mark_safe(f'<form action="" method="get">{ fields }</form>')
-
-
-class FullTextSearchForm(forms.Form):
-    basic_web_search = forms.CharField(label="Full text search")
+        return filtered_queryset
