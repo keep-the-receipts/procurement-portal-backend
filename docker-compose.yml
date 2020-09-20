@@ -15,8 +15,6 @@ services:
     command: ./manage.py runserver 0.0.0.0:8000
     depends_on:
       - db
-      - minio-client
-      - minio
     environment:
       - DATABASE_URL=postgresql://procurement_portal:devpassword@db/procurement_portal
       - DJANGO_DEBUG=True
@@ -25,12 +23,6 @@ services:
       - DJANGO_SECRET_KEY=not-secret-in-dev
       - DJANGO_WHITENOISE_AUTOREFRESH=True
       - TAG_MANAGER_ENABLED=False
-      - AWS_ACCESS_KEY_ID=minio-access-key
-      - AWS_SECRET_ACCESS_KEY=minio-secret-key
-      - AWS_STORAGE_BUCKET_NAME=procurement-portal-storage
-      - AWS_S3_ENDPOINT_URL=http://minio:9000
-      - AWS_S3_SECURE_URLS=True
-      - AWS_S3_CUSTOM_DOMAIN
 
   db:
     image: postgres:11.6
@@ -41,33 +33,5 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 
-  minio:
-    image: "minio/minio:RELEASE.2019-10-12T01-39-57Z"
-    volumes:
-      - minio-data:/data
-    ports:
-      - "9000:9000"
-    environment:
-      - MINIO_ACCESS_KEY=minio-access-key
-      - MINIO_SECRET_KEY=minio-secret-key
-      - MINIO_DOMAIN=minio
-    command: minio --compat server data
-
-  minio-client:
-    image: "minio/mc:RELEASE.2019-12-17T23-26-28Z"
-    depends_on:
-      - minio
-    environment:
-      - MINIO_ACCESS_KEY=minio-access-key
-      - MINIO_SECRET_KEY=minio-secret-key
-      - MINIO_DOMAIN=minio
-    entrypoint: >
-      /bin/sh -c "
-      /usr/bin/mc config host add --quiet --api s3v4 local http://minio:9000 minio-access-key minio-secret-key;
-      /usr/bin/mc mb  local/procurement-portal-storage;
-      /usr/bin/mc policy set public local/procurement-portal-storage;
-      "
-
 volumes:
   db-data:
-  minio-data:
