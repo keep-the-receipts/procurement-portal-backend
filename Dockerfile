@@ -14,12 +14,12 @@ RUN apt-get update \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
-RUN pip install poetry \
-    && poetry env use system
+RUN pip install -U poetry
 
 # Copy, then install requirements before copying rest for a requirements cache layer.
 COPY pyproject.toml poetry.lock /tmp/
 RUN cd /tmp \
+    && poetry env use system \
     && poetry install
 
 COPY . /app
