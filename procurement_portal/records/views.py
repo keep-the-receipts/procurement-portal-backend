@@ -19,6 +19,7 @@ class PurchaseRecordView(drf_generics.ListAPIView):
     filter_backends = [FullTextSearchFilter, FacetFieldFilter]
     facet_filter_fields = [
         "buyer_name",
+        "implementation_location_province",
         "implementation_location_district_municipality",
         "implementation_location_local_municipality",
         "implementation_location_facility",
