@@ -48,10 +48,12 @@ INSTALLED_APPS = [
     "django_extensions",
     "django_filters",
     "storages",
-    'rest_framework',
+    "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -96,9 +98,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -150,11 +158,17 @@ logging.config.dictConfig(
             },
         },
         "handlers": {
-            "console": {"class": "logging.StreamHandler", "formatter": "console",},
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "console",
+            },
         },
         "loggers": {
             # root logger
-            "": {"level": "INFO", "handlers": ["console"],},
+            "": {
+                "level": "INFO",
+                "handlers": ["console"],
+            },
         },
     }
 )
@@ -165,7 +179,9 @@ if TAG_MANAGER_ENABLED:
     TAG_MANAGER_CONTAINER_ID = env("TAG_MANAGER_CONTAINER_ID")
 
 
-DEFAULT_FILE_STORAGE = env.str("DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage")
+DEFAULT_FILE_STORAGE = env.str(
+    "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage"
+)
 if DEFAULT_FILE_STORAGE == "storages.backends.s3boto3.S3Boto3Storage":
     AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY")
@@ -189,3 +205,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 20,
 }
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_URLS_REGEX = r"^/api/.*$"
