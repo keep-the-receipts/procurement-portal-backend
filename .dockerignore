@@ -12,6 +12,6 @@
 !manage.py
 !package.json
 !poetry.lock
-!procurement_portal
+!procurement_portal/
 !pyproject.toml
 !yarn.lock
