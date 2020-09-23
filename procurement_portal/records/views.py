@@ -24,6 +24,7 @@ class PurchaseRecordView(drf_generics.ListAPIView):
         "implementation_location_facility",
         "implementation_location_other",
         "dataset_version__dataset__name",
+        "dataset_version__dataset__repository__name",
     ]
     full_text_filter_fields = [
         "supplier_full_text",
