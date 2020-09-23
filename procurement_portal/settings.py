@@ -33,6 +33,9 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # Rely on nginx to direct only allowed hosts, allow all for dokku checks to work.
 ALLOWED_HOSTS = ["*"]
 
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 
 # Application definition
 
