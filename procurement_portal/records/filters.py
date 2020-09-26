@@ -41,7 +41,8 @@ class FacetFieldFilter(BaseFilterBackend):
                     (v[0], None)
                     for v in queryset.values_list(F(field))
                     .distinct()
-                    .order_by(field).all()
+                    .order_by(field)
+                    .all()
                 ]
             )
             for item in view.facets[field]:
@@ -80,19 +81,21 @@ class FullTextSearchFilter(BaseFilterBackend):
                 terms = PHRASE_RE.sub("", query).strip()
 
                 if terms:
-                    compound_statement = SearchQuery(terms)
+                    compound_statement = SearchQuery(terms, config="english")
 
                 if phrases:
                     if terms:
                         compound_statement = compound_statement & SearchQuery(
-                            phrases[0], search_type="phrase"
+                            phrases[0], search_type="phrase", config="english"
                         )
                     else:
-                        compound_statement = SearchQuery(phrases[0], search_type="phrase")
+                        compound_statement = SearchQuery(
+                            phrases[0], search_type="phrase", config="english"
+                        )
 
                     for phrase in phrases[1:]:
                         compound_statement = compound_statement & SearchQuery(
-                            phrase, search_type="phrase"
+                            phrase, search_type="phrase", config="english"
                         )
                 if terms or phrases:
                     print(compound_statement)
