@@ -3,7 +3,7 @@ from rest_framework.filters import BaseFilterBackend
 from django import forms
 from django.utils.safestring import mark_safe
 import re
-from django.db.models import Count, F
+from django.db.models import Count, F, Q
 from collections import OrderedDict
 
 
@@ -71,13 +71,13 @@ class FullTextSearchFilter(BaseFilterBackend):
         filtered_queryset = queryset
 
         for field in view.full_text_filter_fields:
+            field_queries = Q()
+            query_values = request.query_params.getlist(field, None)
 
-            query = request.query_params.getlist(field, None)
-            if query:
-
-                phrases = [p[0].strip() for p in PHRASE_RE.findall(query[0])]
+            for query in query_values:
+                phrases = [p[0].strip() for p in PHRASE_RE.findall(query)]
                 phrases = [p for p in phrases if p]
-                terms = PHRASE_RE.sub("", query[0]).strip()
+                terms = PHRASE_RE.sub("", query).strip()
 
                 if terms:
                     compound_statement = SearchQuery(terms)
@@ -96,7 +96,9 @@ class FullTextSearchFilter(BaseFilterBackend):
                         )
                 if terms or phrases:
                     print(compound_statement)
-
-                    filtered_queryset = filtered_queryset.filter(**{field: compound_statement})
+                    field_queries.add(Q(**{field: compound_statement}), Q.OR)
+            if field_queries:
+                print(field_queries)
+                filtered_queryset = filtered_queryset.filter(field_queries)
 
         return filtered_queryset
