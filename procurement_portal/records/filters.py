@@ -11,14 +11,7 @@ PHRASE_RE = re.compile(r'"([^"]*)("|$)')
 
 
 class FacetFieldFilter(BaseFilterBackend):
-    def filter_queryset(self, request, queryset, view):
-
-        filters = {}
-        for field in view.facet_filter_fields:
-            values = request.query_params.getlist(field, None)
-            if values:
-                filters[field] = values
-
+    def _set_facets(self, filters, queryset, view):
         for field in view.facet_filter_fields:
             other_filters = filters.copy()
             if field in other_filters:
@@ -56,6 +49,17 @@ class FacetFieldFilter(BaseFilterBackend):
                     item["selected"] = True
                 else:
                     item["selected"] = False
+
+
+    def filter_queryset(self, request, queryset, view):
+        filters = {}
+        for field in view.facet_filter_fields:
+            values = request.query_params.getlist(field, None)
+            if values:
+                filters[field] = values
+
+        if hasattr(view, "facets"):
+            self._set_facets(filters, queryset, view)
 
         for field, values in filters.items():
             queryset = queryset.filter(**{f"{field}__in": values})

@@ -5,13 +5,15 @@ from .serializers import PurchaseRecordSerializer
 from . import models
 from .filters import FullTextSearchFilter, FacetFieldFilter
 from django.db.models import F
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
 
 
 class Index(generic.TemplateView):
     template_name = "records/index.html"
 
 
-class PurchaseRecordView(drf_generics.ListAPIView):
+class BasePurchaseRecordListView(drf_generics.ListAPIView):
     queryset = models.PurchaseRecord.objects.filter(
         dataset_version=F("dataset_version__dataset__current_version")
     )
@@ -34,11 +36,19 @@ class PurchaseRecordView(drf_generics.ListAPIView):
         "procurement_method_full_text",
     ]
 
+
+class PurchaseRecordJSONListView(BasePurchaseRecordListView):
     def __init__(self, *args, **kwargs):
-        super(PurchaseRecordView, self).__init__(*args, **kwargs)
+        super(BasePurchaseRecordListView, self).__init__(*args, **kwargs)
         self.facets = {}
 
     def list(self, request, *args, **kwargs):
-        result = super(PurchaseRecordView, self).list(request, *args, **kwargs)
+        result = super(BasePurchaseRecordListView, self).list(request, *args, **kwargs)
         result.data["meta"] = {"facets": self.facets}
         return result
+
+
+class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
+    renderer_classes = (XLSXRenderer,)
+    pagination_class = None
+    filename = 'purchase_records.xlsx'

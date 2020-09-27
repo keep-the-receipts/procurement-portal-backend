@@ -243,7 +243,7 @@ Django = ">=2.0"
 diff-match-patch = "*"
 
 [package.dependencies.tablib]
-extras = ["html", "xlsx", "xls", "ods", "yaml"]
+extras = ["ods", "xls", "html", "yaml", "xlsx"]
 version = ">=0.14.0"
 
 [[package]]
@@ -275,6 +275,18 @@ version = "3.11.1"
 
 [package.dependencies]
 django = ">=1.11"
+
+[[package]]
+category = "main"
+description = "Django REST Framework renderer for spreadsheet (xlsx) files."
+name = "drf-renderer-xlsx"
+optional = false
+python-versions = "*"
+version = "0.3.8"
+
+[package.dependencies]
+djangorestframework = ">=3.6"
+openpyxl = ">=2.4"
 
 [[package]]
 category = "main"
@@ -849,7 +861,7 @@ test = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 
 [metadata]
-content-hash = "f56514e326e4abb858c06a287cb77a227d6619e1f6fff9a7ea1ac80f1f8c9a45"
+content-hash = "1b8842a8a559c14d94a4608e3769e8000d8c16bd50a13c368d361429b55816d5"
 lock-version = "1.0"
 python-versions = "^3.7"
 
@@ -1015,6 +1027,10 @@ django-storages = [
 djangorestframework = [
     {file = "djangorestframework-3.11.1-py3-none-any.whl", hash = "sha256:8b1ac62c581dbc5799b03e535854b92fc4053ecfe74bad3f9c05782063d4196b"},
     {file = "djangorestframework-3.11.1.tar.gz", hash = "sha256:6dd02d5a4bd2516fb93f80360673bf540c3b6641fec8766b1da2870a5aa00b32"},
+]
+drf-renderer-xlsx = [
+    {file = "drf-renderer-xlsx-0.3.8.tar.gz", hash = "sha256:2c956521113b0705dea4ff3a8b8418b8725c7c63e53dae6e29dba9b4e88d7caa"},
+    {file = "drf_renderer_xlsx-0.3.8-py3-none-any.whl", hash = "sha256:b87b661180af57d56711823ed38b72ee0ba539b16cf4d9dc79bd2b78a18c1d3e"},
 ]
 et-xmlfile = [
     {file = "et_xmlfile-1.0.1.tar.gz", hash = "sha256:614d9722d572f6246302c4491846d2c393c199cfa4edc9af593437691683335b"},
