@@ -7,6 +7,7 @@ from .filters import FullTextSearchFilter, FacetFieldFilter
 from django.db.models import F
 from drf_renderer_xlsx.mixins import XLSXFileMixin
 from drf_renderer_xlsx.renderers import XLSXRenderer
+from django.urls import reverse
 
 
 class Index(generic.TemplateView):
@@ -44,11 +45,28 @@ class PurchaseRecordJSONListView(BasePurchaseRecordListView):
 
     def list(self, request, *args, **kwargs):
         result = super(BasePurchaseRecordListView, self).list(request, *args, **kwargs)
-        result.data["meta"] = {"facets": self.facets}
+        result.data["meta"] = {
+            "facets": self.facets,
+            "xlsx_url": self._get_xlsx_url(request),
+        }
         return result
+
+    def _get_xlsx_url(self, request):
+        querydict = request.GET.copy()
+
+        # The XLSXListview shouldn't pay attention to pagination info, but
+        # it's less confusing if they're not in the URL in the first place.
+        if "count" in querydict:
+            del querydict["count"]
+        if "limit" in querydict:
+            del querydict["limit"]
+
+        return request.build_absolute_uri(
+            f"{reverse('purchase-records-xlsx')}?{querydict.urlencode()}"
+        )
 
 
 class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
     renderer_classes = (XLSXRenderer,)
     pagination_class = None
-    filename = 'purchase_records.xlsx'
+    filename = 'purchase-records.xlsx'
