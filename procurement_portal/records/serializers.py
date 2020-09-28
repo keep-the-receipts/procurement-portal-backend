@@ -7,9 +7,11 @@ class PurchaseRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PurchaseRecord
         fields = [
-            "dataset_version",
             "supplier_name",
-            "amount_value_zar",
+            "order_amount_zar",
+            "invoice_amount_zar",
+            "payment_amount_zar",
+            "cost_per_unit_zar",
             "supplier_name",
             "buyer_name",
             "central_supplier_database_number",
@@ -17,7 +19,6 @@ class PurchaseRecordSerializer(serializers.ModelSerializer):
             "director_names",
             "director_names_and_surnames",
             "director_surnames",
-            "implementation_location",
             "implementation_location_district_municipality",
             "implementation_location_facility",
             "implementation_location_local_municipality",
@@ -25,4 +26,16 @@ class PurchaseRecordSerializer(serializers.ModelSerializer):
             "implementation_location_province",
             "items_description",
             "items_quantity",
+            "items_unit",
+            "procurement_method",
+            "state_employee",
+            "award_date",
+            "invoice_date",
+            "invoice_receipt_date",
+            "payment_date",
+            "order_number",
+            "invoice_number",
+            "payment_number",
+            "payment_period",
+            "bbbee_status",
         ]
