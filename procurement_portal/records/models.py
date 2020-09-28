@@ -82,7 +82,6 @@ class PurchaseRecord(TimeStampedModel):
     bbbee_status = models.CharField(max_length=500, null=True, blank=True)
 
 
-    full_text_search = SearchVectorField(null=True)
     supplier_full_text = SearchVectorField(null=True)
     directors_full_text = SearchVectorField(null=True)
     description_full_text = SearchVectorField(null=True)
@@ -90,7 +89,6 @@ class PurchaseRecord(TimeStampedModel):
 
     class Meta:
         indexes = [
-            GinIndex(fields=["full_text_search"]),
             GinIndex(fields=["supplier_full_text"]),
             GinIndex(fields=["directors_full_text"]),
             GinIndex(fields=["description_full_text"]),
