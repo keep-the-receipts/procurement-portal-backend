@@ -7,6 +7,7 @@ class PurchaseRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PurchaseRecord
         fields = [
+
             "supplier_name",
             "order_amount_zar",
             "invoice_amount_zar",
