@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from .records import views as records_views
 
 from . import views
-
+from .records import views as records_views
 
 urlpatterns = [
     path("", views.Index.as_view(), name="index"),

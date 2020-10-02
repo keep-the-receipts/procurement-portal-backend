@@ -1,9 +1,11 @@
-from django.db import models
 from datetime import datetime
-from django_extensions.db.models import TimeStampedModel
-from django.contrib.postgres.search import SearchVectorField
+
 from django.contrib.postgres.indexes import GinIndex
-from django.utils.html import format_html_join, format_html
+from django.contrib.postgres.search import SearchVectorField
+from django.db import models
+from django.utils.html import format_html, format_html_join
+from django_extensions.db.models import TimeStampedModel
+
 from .validators import validate_file_extension
 
 
@@ -52,23 +54,45 @@ class PurchaseRecord(TimeStampedModel):
     dataset_version = models.ForeignKey("DatasetVersion", on_delete=models.CASCADE)
     buyer_name = models.CharField(max_length=500, db_index=True)
     supplier_name = models.CharField(max_length=500, db_index=True)
-    order_amount_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True, db_index=True)
-    invoice_amount_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
-    payment_amount_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
-    cost_per_unit_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    order_amount_zar = models.DecimalField(
+        max_digits=20, decimal_places=2, null=True, blank=True, db_index=True
+    )
+    invoice_amount_zar = models.DecimalField(
+        max_digits=20, decimal_places=2, null=True, blank=True
+    )
+    payment_amount_zar = models.DecimalField(
+        max_digits=20, decimal_places=2, null=True, blank=True
+    )
+    cost_per_unit_zar = models.DecimalField(
+        max_digits=20, decimal_places=2, null=True, blank=True
+    )
     items_description = models.TextField(null=True, blank=True)
     items_quantity = models.TextField(null=True, blank=True)
     items_unit = models.TextField(null=True, blank=True)
     director_names = models.TextField(null=True, blank=True)
     director_surnames = models.TextField(null=True, blank=True)
     director_names_and_surnames = models.TextField(null=True, blank=True)
-    company_registration_number = models.CharField(max_length=500, null=True, blank=True, db_index=True)
-    central_supplier_database_number = models.CharField(max_length=500, null=True, blank=True, db_index=True)
-    implementation_location_province = models.CharField(max_length=500, null=True, blank=True, db_index=True)
-    implementation_location_district_municipality = models.CharField(max_length=500, null=True, blank=True, db_index=True)
-    implementation_location_local_municipality = models.CharField(max_length=500, null=True, blank=True, db_index=True)
-    implementation_location_facility = models.CharField(max_length=500, null=True, blank=True, db_index=True)
-    implementation_location_other = models.CharField(max_length=500, null=True, blank=True, db_index=True)
+    company_registration_number = models.CharField(
+        max_length=500, null=True, blank=True, db_index=True
+    )
+    central_supplier_database_number = models.CharField(
+        max_length=500, null=True, blank=True, db_index=True
+    )
+    implementation_location_province = models.CharField(
+        max_length=500, null=True, blank=True, db_index=True
+    )
+    implementation_location_district_municipality = models.CharField(
+        max_length=500, null=True, blank=True, db_index=True
+    )
+    implementation_location_local_municipality = models.CharField(
+        max_length=500, null=True, blank=True, db_index=True
+    )
+    implementation_location_facility = models.CharField(
+        max_length=500, null=True, blank=True, db_index=True
+    )
+    implementation_location_other = models.CharField(
+        max_length=500, null=True, blank=True, db_index=True
+    )
     procurement_method = models.TextField(null=True, blank=True)
     state_employee = models.CharField(max_length=500, null=True, blank=True)
     award_date = models.DateField(blank=True, null=True)
@@ -81,7 +105,6 @@ class PurchaseRecord(TimeStampedModel):
     disbursement_number = models.CharField(max_length=500, null=True, blank=True)
     payment_period = models.CharField(max_length=500, null=True, blank=True)
     bbbee_status = models.CharField(max_length=500, null=True, blank=True)
-
 
     supplier_full_text = SearchVectorField(null=True)
     directors_full_text = SearchVectorField(null=True)
@@ -100,7 +123,8 @@ class PurchaseRecord(TimeStampedModel):
         return self.supplier_name
 
 
-EXCLUDED_FIELDS = {'id', 'created', 'modified', 'dataset_version', 'full_text_search'}
+EXCLUDED_FIELDS = {"id", "created", "modified", "dataset_version", "full_text_search"}
+
 
 class DatasetVersion(TimeStampedModel):
     dataset = models.ForeignKey("Dataset", on_delete=models.CASCADE)
@@ -132,17 +156,21 @@ class DatasetVersion(TimeStampedModel):
         return self._counted_fields
 
     def matched_columns(self):
-        return tuple(sorted(k for k, v in self._count_purchase_record_fields().items() if v != 0))
+        return tuple(
+            sorted(k for k, v in self._count_purchase_record_fields().items() if v != 0)
+        )
 
     def missing_columns(self):
-        return tuple(sorted(k for k, v in self._count_purchase_record_fields().items() if v == 0))
+        return tuple(
+            sorted(k for k, v in self._count_purchase_record_fields().items() if v == 0)
+        )
 
     def column_stats(self):
         return self._count_purchase_record_fields()
 
     def column_stats_html(self):
         inner_content = format_html_join(
-            '\n',
+            "\n",
             """
             <tr>
                 <td>
@@ -153,7 +181,13 @@ class DatasetVersion(TimeStampedModel):
                 </td>
             </tr>
             """,
-            ((k, v) for k, v in sorted(self._count_purchase_record_fields().items(), key=lambda x: x[0])))
+            (
+                (k, v)
+                for k, v in sorted(
+                    self._count_purchase_record_fields().items(), key=lambda x: x[0]
+                )
+            ),
+        )
         return format_html(
             """
             <table>
@@ -164,7 +198,7 @@ class DatasetVersion(TimeStampedModel):
               {}
             </table>
             """,
-            inner_content
+            inner_content,
         )
 
     def matched_columns_count(self):

@@ -1,6 +1,5 @@
-from django.test import Client, TestCase
-
 import html5lib
+from django.test import Client, TestCase
 
 
 class IndexTestCase(TestCase):
@@ -8,7 +7,8 @@ class IndexTestCase(TestCase):
         c = Client()
         response = c.get("/records")
         self.assertContains(
-            response, "index for records in procurement_portal",
+            response,
+            "index for records in procurement_portal",
         )
         assertValidHTML(response.content)
 

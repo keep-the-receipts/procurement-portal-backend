@@ -1,13 +1,15 @@
-from django.views import generic
-from rest_framework import generics as drf_generics
-from django_filters.rest_framework import DjangoFilterBackend
-from .serializers import DatasetSerializer, DatasetVersionSerializer, PurchaseRecordSerializer
-from . import models
-from .filters import FullTextSearchFilter, FacetFieldFilter
 from django.db.models import F
+from django.urls import reverse
+from django.views import generic
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_renderer_xlsx.mixins import XLSXFileMixin
 from drf_renderer_xlsx.renderers import XLSXRenderer
-from django.urls import reverse
+from rest_framework import generics as drf_generics
+
+from . import models
+from .filters import FacetFieldFilter, FullTextSearchFilter
+from .serializers import (DatasetSerializer, DatasetVersionSerializer,
+                          PurchaseRecordSerializer)
 
 
 class Index(generic.TemplateView):
@@ -69,7 +71,7 @@ class PurchaseRecordJSONListView(BasePurchaseRecordListView):
 class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
     renderer_classes = (XLSXRenderer,)
     pagination_class = None
-    filename = 'purchase-records.xlsx'
+    filename = "purchase-records.xlsx"
 
 
 class DatasetVersionView(drf_generics.ListAPIView):
