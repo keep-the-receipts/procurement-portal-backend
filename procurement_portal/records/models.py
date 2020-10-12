@@ -88,6 +88,7 @@ class PurchaseRecord(TimeStampedModel):
     procurement_method_full_text = SearchVectorField(null=True)
 
     class Meta:
+        ordering = ["-order_amount_zar", "supplier_name", "buyer_name"]
         indexes = [
             GinIndex(fields=["supplier_full_text"]),
             GinIndex(fields=["directors_full_text"]),
