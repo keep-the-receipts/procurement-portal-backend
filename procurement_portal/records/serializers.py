@@ -3,7 +3,26 @@ from rest_framework import serializers
 from . import models
 
 
+class NoCurrentVersionDatasetSerializer(serializers.ModelSerializer):
+    """For use on a DatasetVersion where current_version is the parent"""
+
+    class Meta:
+        model = models.Dataset
+        exclude = ["current_version"]
+        depth = 1
+
+
+class DatasetVersionSerializer(serializers.ModelSerializer):
+    dataset = NoCurrentVersionDatasetSerializer()
+
+    class Meta:
+        model = models.DatasetVersion
+        fields = "__all__"
+
+
 class PurchaseRecordSerializer(serializers.ModelSerializer):
+    dataset_version = DatasetVersionSerializer()
+
     class Meta:
         model = models.PurchaseRecord
         fields = [
@@ -39,4 +58,5 @@ class PurchaseRecordSerializer(serializers.ModelSerializer):
             "payment_number",
             "payment_period",
             "bbbee_status",
+            "dataset_version",
         ]
