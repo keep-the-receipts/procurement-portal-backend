@@ -7,7 +7,7 @@ from .validators import validate_file_extension
 
 
 class Repository(TimeStampedModel):
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, unique=True)
     description = models.TextField()
 
     def __str__(self):
@@ -23,7 +23,7 @@ class Dataset(TimeStampedModel):
         null=True,
         related_name="+",
     )
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, unique=True)
     description = models.TextField()
     provenance = models.TextField()
     online_source_url = models.URLField(max_length=300, null=True, blank=True)
