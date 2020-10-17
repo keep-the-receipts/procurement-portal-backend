@@ -8,6 +8,8 @@ from django.db.models import F
 from drf_renderer_xlsx.mixins import XLSXFileMixin
 from drf_renderer_xlsx.renderers import XLSXRenderer
 from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 
 class Index(generic.TemplateView):
@@ -43,6 +45,7 @@ class PurchaseRecordJSONListView(BasePurchaseRecordListView):
         super(BasePurchaseRecordListView, self).__init__(*args, **kwargs)
         self.facets = {}
 
+    @method_decorator(cache_page(60*2)) # cache 2 minutes
     def list(self, request, *args, **kwargs):
         result = super(BasePurchaseRecordListView, self).list(request, *args, **kwargs)
         result.data["meta"] = {
@@ -70,3 +73,7 @@ class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
     renderer_classes = (XLSXRenderer,)
     pagination_class = None
     filename = 'purchase-records.xlsx'
+
+    @method_decorator(cache_page(60*2)) # cache 2 minutes
+    def list(self, request, *args, **kwargs):
+        return super(PurchaseRecordXLSXListView, self).list(request, *args, **kwargs)
