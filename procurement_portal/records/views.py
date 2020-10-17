@@ -10,7 +10,11 @@ from rest_framework import generics as drf_generics
 
 from . import models
 from .filters import FacetFieldFilter, FullTextSearchFilter
-from .serializers import PurchaseRecordSerializer
+from .serializers import (
+    DatasetSerializer,
+    DatasetVersionSerializer,
+    PurchaseRecordSerializer,
+)
 
 
 class Index(generic.TemplateView):
@@ -78,3 +82,15 @@ class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
     @method_decorator(cache_page(60 * 2))  # cache 2 minutes
     def list(self, request, *args, **kwargs):
         return super(PurchaseRecordXLSXListView, self).list(request, *args, **kwargs)
+
+
+class DatasetVersionView(drf_generics.ListAPIView):
+    queryset = models.DatasetVersion.objects.filter(pk=F("dataset__current_version"))
+    serializer_class = DatasetVersionSerializer
+    # filter_backends = [DjangoFilterBackend, FullTextSearchFilter]
+
+
+class DatasetView(drf_generics.ListAPIView):
+    queryset = models.Dataset.objects.all()
+    serializer_class = DatasetSerializer
+    # filter_backends = [DjangoFilterBackend, FullTextSearchFilter]

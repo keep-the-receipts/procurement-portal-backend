@@ -22,4 +22,6 @@ urlpatterns = [
         records_views.PurchaseRecordXLSXListView.as_view(),
         name="purchase-records-xlsx",
     ),
+    path("api/datasets/", records_views.DatasetView.as_view()),
+    path("api/dataset_versions/", records_views.DatasetVersionView.as_view()),
 ]
