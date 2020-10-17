@@ -6,17 +6,17 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('records', '0011_purchaserecord_bbbee_status'),
+        ("records", "0011_purchaserecord_bbbee_status"),
     ]
 
-    migration = '''
+    migration = """
         DROP TRIGGER IF EXISTS full_text_search_content_update ON records_purchaserecord;
 
         -- Force triggers to run and populate the text_search column.
         UPDATE records_purchaserecord set ID = ID;
-    '''
+    """
 
-    reverse_migration = '''
+    reverse_migration = """
         CREATE TRIGGER full_text_search_content_update BEFORE INSERT OR UPDATE
         ON records_purchaserecord FOR EACH ROW EXECUTE PROCEDURE
         tsvector_update_trigger(
@@ -26,16 +26,16 @@ class Migration(migrations.Migration):
 
         -- Force triggers to run and populate the text_search column.
         UPDATE records_purchaserecord set ID = ID;
-    '''
+    """
 
     operations = [
         migrations.RunSQL(migration, reverse_migration),
         migrations.RemoveIndex(
-            model_name='purchaserecord',
-            name='records_pur_full_te_99a9e9_gin',
+            model_name="purchaserecord",
+            name="records_pur_full_te_99a9e9_gin",
         ),
         migrations.RemoveField(
-            model_name='purchaserecord',
-            name='full_text_search',
+            model_name="purchaserecord",
+            name="full_text_search",
         ),
     ]

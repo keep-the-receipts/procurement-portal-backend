@@ -45,7 +45,7 @@ class PurchaseRecordJSONListView(BasePurchaseRecordListView):
         super(BasePurchaseRecordListView, self).__init__(*args, **kwargs)
         self.facets = {}
 
-    @method_decorator(cache_page(60*2)) # cache 2 minutes
+    @method_decorator(cache_page(60 * 2))  # cache 2 minutes
     def list(self, request, *args, **kwargs):
         result = super(BasePurchaseRecordListView, self).list(request, *args, **kwargs)
         result.data["meta"] = {
@@ -72,8 +72,8 @@ class PurchaseRecordJSONListView(BasePurchaseRecordListView):
 class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
     renderer_classes = (XLSXRenderer,)
     pagination_class = None
-    filename = 'purchase-records.xlsx'
+    filename = "purchase-records.xlsx"
 
-    @method_decorator(cache_page(60*2)) # cache 2 minutes
+    @method_decorator(cache_page(60 * 2))  # cache 2 minutes
     def list(self, request, *args, **kwargs):
         return super(PurchaseRecordXLSXListView, self).list(request, *args, **kwargs)

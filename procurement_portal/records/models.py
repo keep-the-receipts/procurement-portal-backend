@@ -51,23 +51,45 @@ class PurchaseRecord(TimeStampedModel):
     dataset_version = models.ForeignKey("DatasetVersion", on_delete=models.CASCADE)
     buyer_name = models.CharField(max_length=500, db_index=True)
     supplier_name = models.CharField(max_length=500, db_index=True)
-    order_amount_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True, db_index=True)
-    invoice_amount_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
-    payment_amount_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
-    cost_per_unit_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
+    order_amount_zar = models.DecimalField(
+        max_digits=20, decimal_places=2, null=True, blank=True, db_index=True
+    )
+    invoice_amount_zar = models.DecimalField(
+        max_digits=20, decimal_places=2, null=True, blank=True
+    )
+    payment_amount_zar = models.DecimalField(
+        max_digits=20, decimal_places=2, null=True, blank=True
+    )
+    cost_per_unit_zar = models.DecimalField(
+        max_digits=20, decimal_places=2, null=True, blank=True
+    )
     items_description = models.TextField(default="", blank=True)
     items_quantity = models.TextField(default="", blank=True)
     items_unit = models.TextField(default="", blank=True)
     director_names = models.TextField(default="", blank=True)
     director_surnames = models.TextField(default="", blank=True)
     director_names_and_surnames = models.TextField(default="", blank=True)
-    company_registration_number = models.CharField(max_length=500, default="", blank=True, db_index=True)
-    central_supplier_database_number = models.CharField(max_length=500, default="", blank=True, db_index=True)
-    implementation_location_province = models.CharField(max_length=500, default="", blank=True, db_index=True)
-    implementation_location_district_municipality = models.CharField(max_length=500, default="", blank=True, db_index=True)
-    implementation_location_local_municipality = models.CharField(max_length=500, default="", blank=True, db_index=True)
-    implementation_location_facility = models.CharField(max_length=500, default="", blank=True, db_index=True)
-    implementation_location_other = models.CharField(max_length=500, default="", blank=True, db_index=True)
+    company_registration_number = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
+    central_supplier_database_number = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
+    implementation_location_province = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
+    implementation_location_district_municipality = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
+    implementation_location_local_municipality = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
+    implementation_location_facility = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
+    implementation_location_other = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
     procurement_method = models.TextField(default="", blank=True)
     state_employee = models.CharField(max_length=500, default="", blank=True)
     award_date = models.DateField(blank=True, null=True)
@@ -80,7 +102,6 @@ class PurchaseRecord(TimeStampedModel):
     disbursement_number = models.CharField(max_length=500, default="", blank=True)
     payment_period = models.CharField(max_length=500, default="", blank=True)
     bbbee_status = models.CharField(max_length=500, default="", blank=True)
-
 
     supplier_full_text = SearchVectorField(null=True)
     directors_full_text = SearchVectorField(null=True)

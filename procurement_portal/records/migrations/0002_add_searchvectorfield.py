@@ -7,10 +7,10 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('records', '0001_initial'),
+        ("records", "0001_initial"),
     ]
 
-    migration = '''
+    migration = """
         CREATE TRIGGER full_text_search_content_update BEFORE INSERT OR UPDATE
         ON records_purchaserecord FOR EACH ROW EXECUTE PROCEDURE
         tsvector_update_trigger(
@@ -20,17 +20,17 @@ class Migration(migrations.Migration):
 
         -- Force triggers to run and populate the text_search column.
         UPDATE records_purchaserecord set ID = ID;
-    '''
+    """
 
-    reverse_migration = '''
+    reverse_migration = """
         DROP TRIGGER full_text_search_content_update ON records_purchaserecord;
-    '''
+    """
 
     operations = [
         migrations.AddField(
-            model_name='purchaserecord',
-            name='full_text_search',
+            model_name="purchaserecord",
+            name="full_text_search",
             field=django.contrib.postgres.search.SearchVectorField(null=True),
         ),
-        migrations.RunSQL(migration, reverse_migration)
+        migrations.RunSQL(migration, reverse_migration),
     ]

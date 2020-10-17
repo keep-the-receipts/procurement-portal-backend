@@ -8,7 +8,8 @@ class IndexTestCase(TestCase):
         c = Client()
         response = c.get("/")
         self.assertContains(
-            response, "homepage for procurement_portal",
+            response,
+            "homepage for procurement_portal",
         )
         assertValidHTML(response.content)
 

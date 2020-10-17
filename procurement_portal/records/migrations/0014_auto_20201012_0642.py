@@ -6,33 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('records', '0013_auto_20201012_0526'),
+        ("records", "0013_auto_20201012_0526"),
     ]
 
     def remove_nulls(apps, schema_editor):
-        PurchaseRecord = apps.get_model('records', 'PurchaseRecord')
+        PurchaseRecord = apps.get_model("records", "PurchaseRecord")
         fields = [
-            'bbbee_status',
-            'central_supplier_database_number',
-            'company_registration_number',
-            'director_names',
-            'director_names_and_surnames',
-            'director_surnames',
-            'disbursement_number',
-            'implementation_location_district_municipality',
-            'implementation_location_facility',
-            'implementation_location_local_municipality',
-            'implementation_location_other',
-            'implementation_location_province',
-            'invoice_number',
-            'items_description',
-            'items_quantity',
-            'items_unit',
-            'order_number',
-            'payment_number',
-            'payment_period',
-            'procurement_method',
-            'state_employee',
+            "bbbee_status",
+            "central_supplier_database_number",
+            "company_registration_number",
+            "director_names",
+            "director_names_and_surnames",
+            "director_surnames",
+            "disbursement_number",
+            "implementation_location_district_municipality",
+            "implementation_location_facility",
+            "implementation_location_local_municipality",
+            "implementation_location_other",
+            "implementation_location_province",
+            "invoice_number",
+            "items_description",
+            "items_quantity",
+            "items_unit",
+            "order_number",
+            "payment_number",
+            "payment_period",
+            "procurement_method",
+            "state_employee",
         ]
         for record in PurchaseRecord.objects.all():
             for field in fields:
