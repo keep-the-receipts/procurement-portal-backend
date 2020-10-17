@@ -1,15 +1,16 @@
-from django.views import generic
-from rest_framework import generics as drf_generics
-from django_filters.rest_framework import DjangoFilterBackend
-from .serializers import PurchaseRecordSerializer
-from . import models
-from .filters import FullTextSearchFilter, FacetFieldFilter
 from django.db.models import F
-from drf_renderer_xlsx.mixins import XLSXFileMixin
-from drf_renderer_xlsx.renderers import XLSXRenderer
 from django.urls import reverse
 from django.utils.decorators import method_decorator
+from django.views import generic
 from django.views.decorators.cache import cache_page
+from django_filters.rest_framework import DjangoFilterBackend
+from drf_renderer_xlsx.mixins import XLSXFileMixin
+from drf_renderer_xlsx.renderers import XLSXRenderer
+from rest_framework import generics as drf_generics
+
+from . import models
+from .filters import FacetFieldFilter, FullTextSearchFilter
+from .serializers import PurchaseRecordSerializer
 
 
 class Index(generic.TemplateView):

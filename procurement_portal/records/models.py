@@ -1,8 +1,10 @@
-from django.db import models
 from datetime import datetime
-from django_extensions.db.models import TimeStampedModel
-from django.contrib.postgres.search import SearchVectorField
+
 from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
+from django.db import models
+from django_extensions.db.models import TimeStampedModel
+
 from .validators import validate_file_extension
 
 
