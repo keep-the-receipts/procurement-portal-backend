@@ -7,16 +7,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('records', '0002_add_searchvectorfield'),
+        ("records", "0002_add_searchvectorfield"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='purchaserecord',
+            name="purchaserecord",
             options={},
         ),
         migrations.AddIndex(
-            model_name='purchaserecord',
-            index=django.contrib.postgres.indexes.GinIndex(fields=['full_text_search'], name='records_pur_full_te_99a9e9_gin'),
+            model_name="purchaserecord",
+            index=django.contrib.postgres.indexes.GinIndex(
+                fields=["full_text_search"], name="records_pur_full_te_99a9e9_gin"
+            ),
         ),
     ]

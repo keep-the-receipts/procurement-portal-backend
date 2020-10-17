@@ -7,7 +7,6 @@ import os
 
 
 class PurchaseRecordResource(resources.ModelResource):
-
     class Meta:
         model = models.PurchaseRecord
         force_init_instance = True
@@ -22,7 +21,7 @@ def handle_dataset_version_post_save(
     if created:
         ext = os.path.splitext(instance.file.name)[1][1:]  # [0] returns path+filename
         dataset = tablib.Dataset().load(instance.file.open("r"), ext)
-        dataset.append_col([instance.pk]*len(dataset), header='dataset_version')
+        dataset.append_col([instance.pk] * len(dataset), header="dataset_version")
         resource = PurchaseRecordResource()
         resource.import_data(dataset, raise_errors=True)
 

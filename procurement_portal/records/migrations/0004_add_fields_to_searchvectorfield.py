@@ -6,10 +6,10 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('records', '0003_auto_20200913_1229'),
+        ("records", "0003_auto_20200913_1229"),
     ]
 
-    migration = '''
+    migration = """
         DROP TRIGGER IF EXISTS full_text_search_content_update ON records_purchaserecord;
         CREATE TRIGGER full_text_search_content_update BEFORE INSERT OR UPDATE
         ON records_purchaserecord FOR EACH ROW EXECUTE PROCEDURE
@@ -20,9 +20,9 @@ class Migration(migrations.Migration):
 
         -- Force triggers to run and populate the text_search column.
         UPDATE records_purchaserecord set ID = ID;
-    '''
+    """
 
-    reverse_migration = '''
+    reverse_migration = """
         DROP TRIGGER IF EXISTS full_text_search_content_update ON records_purchaserecord;
         CREATE TRIGGER full_text_search BEFORE INSERT OR UPDATE
         ON records_purchaserecord FOR EACH ROW EXECUTE PROCEDURE
@@ -33,84 +33,86 @@ class Migration(migrations.Migration):
 
         -- Force triggers to run and populate the text_search column.
         UPDATE records_purchaserecord set ID = ID;
-    '''
+    """
 
     operations = [
         migrations.RenameField(
-            model_name='purchaserecord',
-            old_name='amount',
-            new_name='amount_value_rands',
+            model_name="purchaserecord",
+            old_name="amount",
+            new_name="amount_value_rands",
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='buyer_name',
-            field=models.CharField(default='North West Department of Example', max_length=500),
+            model_name="purchaserecord",
+            name="buyer_name",
+            field=models.CharField(
+                default="North West Department of Example", max_length=500
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='central_supplier_database_number',
+            model_name="purchaserecord",
+            name="central_supplier_database_number",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='company_registration_number',
+            model_name="purchaserecord",
+            name="company_registration_number",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='director_names',
+            model_name="purchaserecord",
+            name="director_names",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='director_names_and_surnames',
+            model_name="purchaserecord",
+            name="director_names_and_surnames",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='director_surnames',
+            model_name="purchaserecord",
+            name="director_surnames",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='implementation_location',
+            model_name="purchaserecord",
+            name="implementation_location",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='implementation_location_district_municipality',
+            model_name="purchaserecord",
+            name="implementation_location_district_municipality",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='implementation_location_facility',
+            model_name="purchaserecord",
+            name="implementation_location_facility",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='implementation_location_local_municipality',
+            model_name="purchaserecord",
+            name="implementation_location_local_municipality",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='implementation_location_other',
+            model_name="purchaserecord",
+            name="implementation_location_other",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='implementation_location_province',
+            model_name="purchaserecord",
+            name="implementation_location_province",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='items_description',
+            model_name="purchaserecord",
+            name="items_description",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='items_quantity',
+            model_name="purchaserecord",
+            name="items_quantity",
             field=models.TextField(blank=True, null=True),
         ),
-        migrations.RunSQL(migration, reverse_migration)
+        migrations.RunSQL(migration, reverse_migration),
     ]

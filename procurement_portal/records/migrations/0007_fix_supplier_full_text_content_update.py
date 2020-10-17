@@ -6,10 +6,10 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('records', '0006_auto_20200920_1637'),
+        ("records", "0006_auto_20200920_1637"),
     ]
 
-    migration = '''
+    migration = """
         DROP TRIGGER supplier_full_text_content_update ON records_purchaserecord;
         CREATE TRIGGER supplier_full_text_content_update BEFORE INSERT OR UPDATE
         ON records_purchaserecord FOR EACH ROW EXECUTE PROCEDURE
@@ -20,9 +20,9 @@ class Migration(migrations.Migration):
 
         -- Force triggers to run and populate the text_search column.
         UPDATE records_purchaserecord set ID = ID;
-    '''
+    """
 
-    reverse_migration = '''
+    reverse_migration = """
         DROP TRIGGER supplier_full_text_content_update ON records_purchaserecord;
         CREATE TRIGGER supplier_full_text_content_update BEFORE INSERT OR UPDATE
         ON records_purchaserecord FOR EACH ROW EXECUTE PROCEDURE
@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
             supplier_full_text, 'pg_catalog.english',
             supplier_name
          );
-    '''
+    """
 
     operations = [
         migrations.RunSQL(migration, reverse_migration),

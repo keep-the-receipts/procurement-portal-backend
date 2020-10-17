@@ -32,7 +32,8 @@ class FacetFieldFilter(BaseFilterBackend):
             all_values = OrderedDict(
                 [
                     (v[0], None)
-                    for v in view.get_queryset().values_list(F(field))
+                    for v in view.get_queryset()
+                    .values_list(F(field))
                     .distinct()
                     .order_by(field)
                     .all()
@@ -49,7 +50,6 @@ class FacetFieldFilter(BaseFilterBackend):
                     item["selected"] = True
                 else:
                     item["selected"] = False
-
 
     def filter_queryset(self, request, queryset, view):
         filters = {}

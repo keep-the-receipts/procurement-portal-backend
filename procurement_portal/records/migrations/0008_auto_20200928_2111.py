@@ -6,145 +6,167 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('records', '0007_fix_supplier_full_text_content_update'),
+        ("records", "0007_fix_supplier_full_text_content_update"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='dataset',
-            options={'get_latest_by': 'modified'},
+            name="dataset",
+            options={"get_latest_by": "modified"},
         ),
         migrations.AlterModelOptions(
-            name='datasetversion',
-            options={'get_latest_by': 'modified'},
+            name="datasetversion",
+            options={"get_latest_by": "modified"},
         ),
         migrations.AlterModelOptions(
-            name='repository',
-            options={'get_latest_by': 'modified'},
+            name="repository",
+            options={"get_latest_by": "modified"},
         ),
         migrations.RenameField(
-            model_name='purchaserecord',
-            old_name='amount_value_zar',
-            new_name='order_amount_value_zar',
+            model_name="purchaserecord",
+            old_name="amount_value_zar",
+            new_name="order_amount_value_zar",
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='award_date',
+            model_name="purchaserecord",
+            name="award_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='cost_per_unit_zar',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=20, null=True),
+            model_name="purchaserecord",
+            name="cost_per_unit_zar",
+            field=models.DecimalField(
+                blank=True, decimal_places=2, max_digits=20, null=True
+            ),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='disbursement_number',
+            model_name="purchaserecord",
+            name="disbursement_number",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='invoice_amount_zar',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=20, null=True),
+            model_name="purchaserecord",
+            name="invoice_amount_zar",
+            field=models.DecimalField(
+                blank=True, decimal_places=2, max_digits=20, null=True
+            ),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='invoice_date',
+            model_name="purchaserecord",
+            name="invoice_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='invoice_number',
+            model_name="purchaserecord",
+            name="invoice_number",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='invoice_receipt_date',
+            model_name="purchaserecord",
+            name="invoice_receipt_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='items_unit',
+            model_name="purchaserecord",
+            name="items_unit",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='order_number',
+            model_name="purchaserecord",
+            name="order_number",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='payment_amount_zar',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=20, null=True),
+            model_name="purchaserecord",
+            name="payment_amount_zar",
+            field=models.DecimalField(
+                blank=True, decimal_places=2, max_digits=20, null=True
+            ),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='payment_date',
+            model_name="purchaserecord",
+            name="payment_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='payment_number',
+            model_name="purchaserecord",
+            name="payment_number",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='payment_period',
+            model_name="purchaserecord",
+            name="payment_period",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AddField(
-            model_name='purchaserecord',
-            name='state_employee',
+            model_name="purchaserecord",
+            name="state_employee",
             field=models.CharField(blank=True, max_length=500, null=True),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='buyer_name',
+            model_name="purchaserecord",
+            name="buyer_name",
             field=models.CharField(db_index=True, max_length=500),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='central_supplier_database_number',
-            field=models.CharField(blank=True, db_index=True, max_length=500, null=True),
+            model_name="purchaserecord",
+            name="central_supplier_database_number",
+            field=models.CharField(
+                blank=True, db_index=True, max_length=500, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='company_registration_number',
-            field=models.CharField(blank=True, db_index=True, max_length=500, null=True),
+            model_name="purchaserecord",
+            name="company_registration_number",
+            field=models.CharField(
+                blank=True, db_index=True, max_length=500, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='implementation_location',
-            field=models.CharField(blank=True, db_index=True, max_length=500, null=True),
+            model_name="purchaserecord",
+            name="implementation_location",
+            field=models.CharField(
+                blank=True, db_index=True, max_length=500, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='implementation_location_district_municipality',
-            field=models.CharField(blank=True, db_index=True, max_length=500, null=True),
+            model_name="purchaserecord",
+            name="implementation_location_district_municipality",
+            field=models.CharField(
+                blank=True, db_index=True, max_length=500, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='implementation_location_facility',
-            field=models.CharField(blank=True, db_index=True, max_length=500, null=True),
+            model_name="purchaserecord",
+            name="implementation_location_facility",
+            field=models.CharField(
+                blank=True, db_index=True, max_length=500, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='implementation_location_local_municipality',
-            field=models.CharField(blank=True, db_index=True, max_length=500, null=True),
+            model_name="purchaserecord",
+            name="implementation_location_local_municipality",
+            field=models.CharField(
+                blank=True, db_index=True, max_length=500, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='implementation_location_other',
-            field=models.CharField(blank=True, db_index=True, max_length=500, null=True),
+            model_name="purchaserecord",
+            name="implementation_location_other",
+            field=models.CharField(
+                blank=True, db_index=True, max_length=500, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='implementation_location_province',
-            field=models.CharField(blank=True, db_index=True, max_length=500, null=True),
+            model_name="purchaserecord",
+            name="implementation_location_province",
+            field=models.CharField(
+                blank=True, db_index=True, max_length=500, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='purchaserecord',
-            name='supplier_name',
+            model_name="purchaserecord",
+            name="supplier_name",
             field=models.CharField(db_index=True, max_length=500),
         ),
     ]
