@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.db import models
-from django.utils.html import format_html, format_html_join
+from django.utils.html import escape, format_html, format_html_join
 from django_extensions.db.models import TimeStampedModel
 
 from .validators import validate_file_extension
@@ -99,12 +99,12 @@ class PurchaseRecord(TimeStampedModel):
     invoice_date = models.DateField(blank=True, null=True)
     invoice_receipt_date = models.DateField(blank=True, null=True)
     payment_date = models.DateField(blank=True, null=True)
-    order_number = models.CharField(max_length=500, null=True, blank=True)
-    invoice_number = models.CharField(max_length=500, null=True, blank=True)
-    payment_number = models.CharField(max_length=500, null=True, blank=True)
-    disbursement_number = models.CharField(max_length=500, null=True, blank=True)
-    payment_period = models.CharField(max_length=500, null=True, blank=True)
-    bbbee_status = models.CharField(max_length=500, null=True, blank=True)
+    order_number = models.CharField(max_length=500, default="", blank=True)
+    invoice_number = models.CharField(max_length=500, default="", blank=True)
+    payment_number = models.CharField(max_length=500, default="", blank=True)
+    disbursement_number = models.CharField(max_length=500, default="", blank=True)
+    payment_period = models.CharField(max_length=500, default="", blank=True)
+    bbbee_status = models.CharField(max_length=500, default="", blank=True)
 
     supplier_full_text = SearchVectorField(null=True)
     directors_full_text = SearchVectorField(null=True)
@@ -123,7 +123,16 @@ class PurchaseRecord(TimeStampedModel):
         return self.supplier_name
 
 
-EXCLUDED_FIELDS = {"id", "created", "modified", "dataset_version", "full_text_search"}
+COUNTING_EXCLUDED_FIELDS = {
+    "id",
+    "created",
+    "modified",
+    "dataset_version",
+    "supplier_full_text",
+    "directors_full_text",
+    "description_full_text",
+    "procurement_method_full_text",
+}
 
 
 class DatasetVersion(TimeStampedModel):
@@ -147,7 +156,7 @@ class DatasetVersion(TimeStampedModel):
             for record in self.purchaserecord_set.all():
                 for f in record._meta.fields:
                     field = f.name
-                    if field in EXCLUDED_FIELDS:
+                    if field in COUNTING_EXCLUDED_FIELDS:
                         continue
                     count.setdefault(field, 0)
                     if getattr(record, field):
@@ -182,7 +191,7 @@ class DatasetVersion(TimeStampedModel):
             </tr>
             """,
             (
-                (k, v)
+                (escape(k), escape(v))
                 for k, v in sorted(
                     self._count_purchase_record_fields().items(), key=lambda x: x[0]
                 )

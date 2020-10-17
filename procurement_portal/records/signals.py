@@ -31,7 +31,7 @@ def handle_dataset_version_post_save(
         counts = instance._count_purchase_record_fields()
         missing_fields = [
             field
-            for field in {"buyer_name", "supplier_name", "amount_value_zar"}
+            for field in {"buyer_name", "supplier_name", "order_amount_zar"}
             if counts[field] == 0
         ]
         if missing_fields:
