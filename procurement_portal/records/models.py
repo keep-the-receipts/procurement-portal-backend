@@ -4,6 +4,7 @@ from django_extensions.db.models import TimeStampedModel
 from django.contrib.postgres.search import SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
 from .validators import validate_file_extension
+from django.core.validators import MinLengthValidator
 
 
 class Repository(TimeStampedModel):
@@ -48,9 +49,11 @@ class PurchaseRecord(TimeStampedModel):
     # as possible, bearing in mind that it's trying to be the most
     # verbatim structured representation of the data _as_published_
     # https://github.com/South-Africa-Government-Procurement/project-docs/wiki/Data-models-and-standards#abstract-records-of-amounts
+    min_length_validator = MinLengthValidator(2)
+
     dataset_version = models.ForeignKey("DatasetVersion", on_delete=models.CASCADE)
-    buyer_name = models.CharField(max_length=500, db_index=True)
-    supplier_name = models.CharField(max_length=500, db_index=True)
+    buyer_name = models.CharField(max_length=500, db_index=True, validators=[min_length_validator])
+    supplier_name = models.CharField(max_length=500, db_index=True, validators=[min_length_validator])
     order_amount_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True, db_index=True)
     invoice_amount_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
     payment_amount_zar = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
