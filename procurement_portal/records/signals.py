@@ -1,9 +1,11 @@
-from . import models
+import os
+
+import tablib
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-import tablib
 from import_export import resources
-import os
+
+from . import models
 
 
 class PurchaseRecordResource(resources.ModelResource):

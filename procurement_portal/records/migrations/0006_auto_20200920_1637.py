@@ -3,6 +3,7 @@
 import django.contrib.postgres.indexes
 import django.contrib.postgres.search
 from django.db import migrations, models
+
 import procurement_portal.records.models
 import procurement_portal.records.validators
 

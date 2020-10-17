@@ -1,11 +1,11 @@
-from django.contrib.postgres.search import SearchQuery, SearchVector
-from rest_framework.filters import BaseFilterBackend
-from django import forms
-from django.utils.safestring import mark_safe
 import re
-from django.db.models import Count, F, Q
 from collections import OrderedDict
 
+from django import forms
+from django.contrib.postgres.search import SearchQuery, SearchVector
+from django.db.models import Count, F, Q
+from django.utils.safestring import mark_safe
+from rest_framework.filters import BaseFilterBackend
 
 PHRASE_RE = re.compile(r'"([^"]*)("|$)')
 
