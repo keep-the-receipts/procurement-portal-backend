@@ -22,9 +22,13 @@ class Index(generic.TemplateView):
 
 
 class BasePurchaseRecordListView(drf_generics.ListAPIView):
-    queryset = models.PurchaseRecord.objects.filter(
-        dataset_version=F("dataset_version__dataset__current_version")
-    ).order_by(F("order_amount_zar").desc(nulls_last=True)).prefetch_related("dataset_version__dataset__repository")
+    queryset = (
+        models.PurchaseRecord.objects.filter(
+            dataset_version=F("dataset_version__dataset__current_version")
+        )
+        .order_by(F("order_amount_zar").desc(nulls_last=True))
+        .prefetch_related("dataset_version__dataset__repository")
+    )
     serializer_class = PurchaseRecordSerializer
     filter_backends = [FullTextSearchFilter, FacetFieldFilter]
     facet_filter_fields = [
