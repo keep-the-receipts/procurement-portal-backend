@@ -78,6 +78,15 @@ class PurchaseRecord(TimeStampedModel):
     central_supplier_database_number = models.CharField(
         max_length=500, default="", blank=True, db_index=True
     )
+    supplier_numbers_other = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
+    reporting_period = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
+    implementation_status = models.CharField(
+        max_length=500, default="", blank=True, db_index=True
+    )
     implementation_location_province = models.CharField(
         max_length=500, default="", blank=True, db_index=True
     )
