@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 
 from . import models
 
@@ -45,6 +45,13 @@ class DatasetVersionAdmin(admin.ModelAdmin):
         "missing_columns_count",
         "total_columns_count",
     ]
+
+    def save_model(self, request, obj, form, change):
+        result = super().save_model(request, obj, form, change)
+        if hasattr(obj, "_error_message"):
+            messages.set_level(request, messages.ERROR)
+            messages.add_message(request, messages.ERROR, obj._error_message)
+            return result
 
 
 admin.site.register(models.DatasetVersion, DatasetVersionAdmin)
