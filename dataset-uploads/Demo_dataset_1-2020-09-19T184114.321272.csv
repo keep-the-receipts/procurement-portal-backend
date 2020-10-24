@@ -1,3 +1,3 @@
-supplier_name,director_names,director_surnames,company_registration_number,central_suplier_database_number,implementation_location_other,implementation_location_district_municipality,buyer_name,amount_value_zar
+supplier_name,director_names,director_surnames,company_registration_number,central_suplier_database_number,implementation_location_other,implementation_location_district_municipality,buyer_name,order_amount_zar
 Fred’s meds,Fred,Bloggs,1234567890,987654321,This hospital,That district,Eastern Cape Department of Health,123456
 Joe’s Shoppe,Joe,Smith,2345678901,876543210,This hospital,That district,Eastern Cape Department of Health,234567
