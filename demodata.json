@@ -94,18 +94,20 @@
     "buyer_name": "Eastern Cape Department of Health",
     "supplier_name": "Fred\u2019s meds",
     "order_amount_zar": "123456.00",
-    "items_description": "",
-    "items_quantity": "",
+    "items_description": null,
+    "items_quantity": null,
     "director_names": "Fred",
     "director_surnames": "Bloggs",
-    "director_names_and_surnames": "",
+    "director_names_and_surnames": null,
     "company_registration_number": "1234567890",
-    "central_supplier_database_number": "",
-    "implementation_location_province": "",
+    "central_supplier_database_number": null,
+    "implementation_location": null,
+    "implementation_location_province": null,
     "implementation_location_district_municipality": "That district",
-    "implementation_location_local_municipality": "",
-    "implementation_location_facility": "",
-    "implementation_location_other": "This hospital"
+    "implementation_location_local_municipality": null,
+    "implementation_location_facility": null,
+    "implementation_location_other": "This hospital",
+    "full_text_search": "'1234567890':9 'blogg':11 'cape':5 'depart':6 'district':13 'eastern':4 'fred':1,10 'health':8 'hospit':15 'med':3"
   }
 },
 {
@@ -117,18 +119,20 @@
     "buyer_name": "Eastern Cape Department of Health",
     "supplier_name": "Joe\u2019s Shoppe",
     "order_amount_zar": "234567.00",
-    "items_description": "",
-    "items_quantity": "",
+    "items_description": null,
+    "items_quantity": null,
     "director_names": "Joe",
     "director_surnames": "Smith",
-    "director_names_and_surnames": "",
+    "director_names_and_surnames": null,
     "company_registration_number": "2345678901",
-    "central_supplier_database_number": "",
-    "implementation_location_province": "",
+    "central_supplier_database_number": null,
+    "implementation_location": null,
+    "implementation_location_province": null,
     "implementation_location_district_municipality": "That district",
-    "implementation_location_local_municipality": "",
-    "implementation_location_facility": "",
-    "implementation_location_other": "This hospital"
+    "implementation_location_local_municipality": null,
+    "implementation_location_facility": null,
+    "implementation_location_other": "This hospital",
+    "full_text_search": "'2345678901':9 'cape':5 'depart':6 'district':13 'eastern':4 'health':8 'hospit':15 'joe':1,10 'shopp':3 'smith':11"
   }
 },
 {
@@ -140,18 +144,20 @@
     "buyer_name": "Gauteng Department of Health",
     "supplier_name": "Fred\u2019s meds",
     "order_amount_zar": "34567.00",
-    "items_description": "",
-    "items_quantity": "",
-    "director_names": "",
-    "director_surnames": "",
-    "director_names_and_surnames": "",
-    "company_registration_number": "",
-    "central_supplier_database_number": "",
-    "implementation_location_province": "",
-    "implementation_location_district_municipality": "",
-    "implementation_location_local_municipality": "",
-    "implementation_location_facility": "",
-    "implementation_location_other": ""
+    "items_description": null,
+    "items_quantity": null,
+    "director_names": null,
+    "director_surnames": null,
+    "director_names_and_surnames": null,
+    "company_registration_number": null,
+    "central_supplier_database_number": null,
+    "implementation_location": null,
+    "implementation_location_province": null,
+    "implementation_location_district_municipality": null,
+    "implementation_location_local_municipality": null,
+    "implementation_location_facility": null,
+    "implementation_location_other": null,
+    "full_text_search": "'depart':5 'fred':1 'gauteng':4 'health':7 'med':3"
   }
 },
 {
@@ -163,18 +169,20 @@
     "buyer_name": "Gauteng Department of Social Development",
     "supplier_name": "Peter\u2019s pills",
     "order_amount_zar": "456789.00",
-    "items_description": "",
-    "items_quantity": "",
-    "director_names": "",
-    "director_surnames": "",
-    "director_names_and_surnames": "",
-    "company_registration_number": "",
-    "central_supplier_database_number": "",
-    "implementation_location_province": "",
-    "implementation_location_district_municipality": "",
-    "implementation_location_local_municipality": "",
-    "implementation_location_facility": "",
-    "implementation_location_other": ""
+    "items_description": null,
+    "items_quantity": null,
+    "director_names": null,
+    "director_surnames": null,
+    "director_names_and_surnames": null,
+    "company_registration_number": null,
+    "central_supplier_database_number": null,
+    "implementation_location": null,
+    "implementation_location_province": null,
+    "implementation_location_district_municipality": null,
+    "implementation_location_local_municipality": null,
+    "implementation_location_facility": null,
+    "implementation_location_other": null,
+    "full_text_search": "'depart':5 'develop':8 'gauteng':4 'peter':1 'pill':3 'social':7"
   }
 },
 {
@@ -193,11 +201,13 @@
     "director_names_and_surnames": "Catherine Cross",
     "company_registration_number": "",
     "central_supplier_database_number": "",
+    "implementation_location": null,
     "implementation_location_province": "Western Cape",
     "implementation_location_district_municipality": "City of Cape Town",
     "implementation_location_local_municipality": "City of Cape Town",
     "implementation_location_facility": "That there hospital",
-    "implementation_location_other": "Woodstock"
+    "implementation_location_other": "Woodstock",
+    "full_text_search": "'123':30 '456':31 'box':32 'cape':12,19,23 'cat':1 'catherin':8 'cathet':3 'citi':10,17 'cross':9 'depart':5 'health':7 'hospit':16 'nation':4 'town':13,20 'western':22 'woodstock':21"
   }
 },
 {
@@ -216,11 +226,13 @@
     "director_names_and_surnames": "Catherine Cross\nFred Jones",
     "company_registration_number": "",
     "central_supplier_database_number": "",
+    "implementation_location": null,
     "implementation_location_province": "Western Cape",
     "implementation_location_district_municipality": "City of Cape Town",
     "implementation_location_local_municipality": "City of Cape Town",
     "implementation_location_facility": "That there hospital",
-    "implementation_location_other": "Woodstock"
+    "implementation_location_other": "Woodstock",
+    "full_text_search": "'1000':37 '12':36 '5':38 'bag':39 'cape':15,22,26 'cat':1 'catherin':9 'cathet':3 'citi':13,20 'cross':10 'depart':5 'develop':8 'differ':32 'fred':11 'hospit':19 'jone':12 'like':34 'lot':27 'nation':4 'row':33 'social':7 'sometim':30 'thing':29 'town':16,23 'western':25 'woodstock':24"
   }
 },
 {
@@ -239,11 +251,13 @@
     "director_names_and_surnames": "",
     "company_registration_number": "5678901234",
     "central_supplier_database_number": "6789012345",
+    "implementation_location": null,
     "implementation_location_province": "Eastern Cape",
     "implementation_location_district_municipality": "Some district",
     "implementation_location_local_municipality": "Some local",
     "implementation_location_facility": "",
-    "implementation_location_other": "A city name"
+    "implementation_location_other": "A city name",
+    "full_text_search": "'100':45 '5678901234':10 '6789012345':9 'blogg':12 'cape':21 'citi':18 'date':3 'depart':5 'develop':8 'district':14 'eastern':20 'fred':11 'kate':1 'like':43 'line':28 'local':16 'long':27,38 'name':19 'nation':4 'reali':25 'realli':26 'social':7 'suppli':34 'thing':30 'wil':41 'wrap':44"
   }
 },
 {
