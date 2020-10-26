@@ -18,6 +18,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://procurement_portal:devpassword@db/procurement_portal
       - DJANGO_DEBUG=True
+      - DEBUG_CACHE
       - NODE_ENV=development
       - DJANGO_DEBUG_TOOLBAR
       - DJANGO_SECRET_KEY=not-secret-in-dev
