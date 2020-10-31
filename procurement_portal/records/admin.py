@@ -6,6 +6,12 @@ from . import models
 class DatasetVersionInline(admin.TabularInline):
     model = models.DatasetVersion
 
+    def get_max_num(self, request, obj=None, **kwargs):
+        if obj:
+            return obj.versions.count() + 1
+        else:
+            return 1
+
 
 class DatasetAdmin(admin.ModelAdmin):
     inlines = [
