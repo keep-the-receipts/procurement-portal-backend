@@ -6,6 +6,7 @@ from . import models
 class DatasetVersionInline(admin.TabularInline):
     model = models.DatasetVersion
 
+    # Always show exactly one new inline form.
     def get_max_num(self, request, obj=None, **kwargs):
         if obj:
             return obj.versions.count() + 1
@@ -18,6 +19,18 @@ class DatasetAdmin(admin.ModelAdmin):
         DatasetVersionInline,
     ]
 
+    def save_related(self, request, form, formsets, change):
+        print("### Before")
+        for inlines in formsets:
+            for inline_form in inlines:
+                print(inline_form.instance.pk)
+
+        result = super(DatasetAdmin, self).save_related(request, form, formsets, change)
+        print("### After")
+        for inlines in formsets:
+            for inline_form in inlines:
+                print(f"{inline_form.instance.pk} inline_form.has_changed()")
+        return result
 
 admin.site.register(models.Repository)
 admin.site.register(models.Dataset, DatasetAdmin)
