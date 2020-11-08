@@ -17,7 +17,10 @@ class DatasetVersionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.DatasetVersion
-        fields = "__all__"
+        exclude = [
+            "imported",
+            "import_report",
+        ]
 
 
 class PurchaseRecordSerializer(serializers.ModelSerializer):

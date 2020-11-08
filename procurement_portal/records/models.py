@@ -31,7 +31,6 @@ class Dataset(TimeStampedModel):
     provenance = models.TextField()
     online_source_url = models.URLField(max_length=300, null=True, blank=True)
     trusted_archive_url = models.URLField(max_length=300, null=True, blank=True)
-    enabled = models.BooleanField(default=True)
 
     @property
     def latest_version(self):
