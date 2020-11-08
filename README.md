@@ -43,6 +43,12 @@ In another shell, initialise and run the django app
     docker-compose run --rm web bin/wait-for-postgres.sh
     docker-compose run --rm web python manage.py migrate
     docker-compose up
+    
+In another shell, collect project statics
+
+docker-compose run --rm web yarn install
+docker-compose run --rm web yarn build
+docker-compose run --rm web python manage.py collectstatic
 
 
 ### Demo data

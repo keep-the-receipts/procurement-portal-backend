@@ -19,7 +19,7 @@ script:
   - docker-compose run --rm web python manage.py loaddata demodata
   - docker-compose run --rm web coverage run --source=procurement_portal manage.py test
   - docker-compose up -d web
-  - wget --retry-connrefused --waitretry=1 --read-timeout=10 --timeout=10 --tries=10 -O-  "http://localhost:8000/api/purchase_records/" | grep "electrical"
+  - wget --retry-connrefused --waitretry=1 --read-timeout=10 --timeout=10 --tries=10 -O-  "http://localhost:8000/api/purchase_records/" | grep "pills"
 
 
 after_script:
