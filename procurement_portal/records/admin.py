@@ -52,15 +52,15 @@ class DatasetAdmin(admin.ModelAdmin):
     ]
 
     def current_version_created_date(self, obj):
-        if obj:
+        if obj and obj.current_version:
             return obj.current_version.created
 
     def latest_version_created_date(self, obj):
-        if obj:
+        if obj and obj.latest_version:
             return obj.latest_version.created
 
     def latest_version_is_imported(self, obj):
-        if obj:
+        if obj and obj.latest_version:
             return obj.latest_version.imported
 
     latest_version_is_imported.boolean = True
