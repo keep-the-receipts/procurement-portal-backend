@@ -239,3 +239,15 @@ REST_FRAMEWORK = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r"^/api/.*$"
+
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+if env.str("SENTRY_DSN", None):
+    sentry_sdk.init(
+        dsn=env.str("SENTRY_DSN"),
+        integrations=[DjangoIntegration()],
+
+        traces_sample_rate=env.float("SENTRY_PERF_SAMPLE_RATE", 1),
+    )
