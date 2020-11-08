@@ -30,21 +30,14 @@ def handle_dataset_version_post_save(
         result = resource.import_data(dataset)
 
         if result.has_errors():
-            instance._error_message = build_error_message(result)
-            return
+            instance.import_report = build_error_message(result)
+        else:
+            instance.imported = True
+            instance.import_report = "OK"
 
-        counts = instance._count_purchase_record_fields()
-        missing_fields = [
-            field
-            for field in {"buyer_name", "supplier_name", "order_amount_zar"}
-            if counts[field] == 0
-        ]
-        if missing_fields:
-            raise ValidationError(
-                "Missing field(s): {}".format(", ".join(missing_fields))
-            )
+        if instance.imported:
+            instance.dataset.current_version = instance
 
-        instance.dataset.current_version = instance
         instance.dataset.save()
 
 

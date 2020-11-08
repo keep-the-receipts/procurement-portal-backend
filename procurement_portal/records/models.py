@@ -148,6 +148,8 @@ class DatasetVersion(TimeStampedModel):
     dataset = models.ForeignKey("Dataset", on_delete=models.CASCADE, related_name="versions")
     description = models.TextField()
     file = models.FileField(upload_to=file_path, validators=[validate_file_extension])
+    import_report = models.TextField(blank=True, default="")
+    imported = models.BooleanField()
 
     _counted_fields = None
 
