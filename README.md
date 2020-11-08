@@ -37,18 +37,17 @@ shares your UID and GID. This is important for the container to have permission
 to modify files owned by your host user (e.g. for python-black) and your host
 user to modify files created by the container (e.g. migrations).
 
+If you will be developing on the django frontend
 
-In another shell, initialise and run the django app
+    docker-compose run --rm web yarn
+    docker-compose run --rm web yarn dev
+    docker-compose run --rm web python manage.py collectstatic
+
+To  initialise and run the django app
 
     docker-compose run --rm web bin/wait-for-postgres.sh
     docker-compose run --rm web python manage.py migrate
     docker-compose up
-    
-In another shell, collect project statics
-
-docker-compose run --rm web yarn install
-docker-compose run --rm web yarn build
-docker-compose run --rm web python manage.py collectstatic
 
 
 ### Demo data
@@ -73,10 +72,16 @@ the above again:
 Running tests
 -------------
 
+Make sure you have prepared static files and have the db running and ready
+
+    docker-compose run --rm web yarn
+    docker-compose run --rm web yarn build
+    docker-compose run --rm web python manage.py collectstatic
+    docker-compose run --rm web bin/wait-for-postgres.sh
+
+Each time you'd like to run tests
+
     docker-compose run --rm web python manage.py test
-
-Tests might fail to connect to the databse if the docker-compose `db` service wasn't running and configured yet. Just check the logs for the `db` service and run the tests again.
-
 
 Settings
 --------
