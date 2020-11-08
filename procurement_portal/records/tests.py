@@ -1,4 +1,7 @@
+from unittest.mock import MagicMock, patch
 import html5lib
+from django.contrib.messages import ERROR
+from django.contrib.admin.sites import AdminSite
 from django.test import Client, TestCase
 
 
