@@ -48,6 +48,7 @@ def handle_dataset_version_post_save(
         except Exception as e:
             instance.import_report = e.message
 
+        instance.dataset.save()
         instance.save()
 
 

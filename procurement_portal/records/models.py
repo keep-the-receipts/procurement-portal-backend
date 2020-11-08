@@ -157,6 +157,9 @@ class DatasetVersion(TimeStampedModel):
 
     _counted_fields = None
 
+    class Meta:
+        ordering = ["dataset__name", "-created"]
+
     def __str__(self):
         return f"{self.dataset.name} ({ self.created })"
 
