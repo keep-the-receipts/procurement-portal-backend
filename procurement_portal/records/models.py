@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.db import models
-from django.utils.html import escape, format_html, format_html_join
+from django.utils.html import format_html, format_html_join
 from django_extensions.db.models import TimeStampedModel
 
 from .validators import validate_file_extension
@@ -32,6 +32,10 @@ class Dataset(TimeStampedModel):
     online_source_url = models.URLField(max_length=300, null=True, blank=True)
     trusted_archive_url = models.URLField(max_length=300, null=True, blank=True)
     enabled = models.BooleanField(default=True)
+
+    @property
+    def latest_version(self):
+        return self.versions.order_by("-pk")[0]
 
     def __str__(self):
         return f"{self.name} ({ self.repository.name })"
@@ -149,7 +153,7 @@ class DatasetVersion(TimeStampedModel):
     description = models.TextField()
     file = models.FileField(upload_to=file_path, validators=[validate_file_extension])
     import_report = models.TextField(blank=True, default="")
-    imported = models.BooleanField()
+    imported = models.BooleanField(default=False)
 
     _counted_fields = None
 
@@ -189,20 +193,15 @@ class DatasetVersion(TimeStampedModel):
         return self._count_purchase_record_fields()
 
     def column_stats_html(self):
-        inner_content = format_html_join(
+        inner_html = format_html_join(
             "\n",
             """
-            <tr>
-                <td>
-                    {}
-                </td>
-                <td>
-                    {}
-                </td>
-            </tr>
+            <span style="border: 1px solid black; padding: 5px; font-weight: {}">
+                {}:&nbsp;{}
+            </span>
             """,
             (
-                (escape(k), escape(v))
+                ("bold" if v else "normal", k, v)
                 for k, v in sorted(
                     self._count_purchase_record_fields().items(), key=lambda x: x[0]
                 )
@@ -210,16 +209,13 @@ class DatasetVersion(TimeStampedModel):
         )
         return format_html(
             """
-            <table>
-              <tr>
-                <th>Field Name</th>
-                <th>Count</th>
-              </tr>
-              {}
-            </table>
+            <div style="line-height: 28px">
+                {}
+            </div>
             """,
-            inner_content,
+            inner_html
         )
+
 
     def matched_columns_count(self):
         return len(self.matched_columns())
