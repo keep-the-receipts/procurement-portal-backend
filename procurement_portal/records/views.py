@@ -1,4 +1,5 @@
 from django.db.models import F
+from django.http import StreamingHttpResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import generic
@@ -7,6 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from drf_renderer_xlsx.mixins import XLSXFileMixin
 from drf_renderer_xlsx.renderers import XLSXRenderer
 from rest_framework import generics as drf_generics
+import xlsx_streaming
 
 from . import models
 from .filters import FacetFieldFilter, FullTextSearchFilter
@@ -79,13 +81,24 @@ class PurchaseRecordJSONListView(BasePurchaseRecordListView):
 
 
 class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
-    renderer_classes = (XLSXRenderer,)
     pagination_class = None
+    template_filename = "template.xlsx"
     filename = "purchase-records.xlsx"
 
     @method_decorator(cache_page(60 * 2))  # cache 2 minutes
     def list(self, request, *args, **kwargs):
-        return super(PurchaseRecordXLSXListView, self).list(request, *args, **kwargs)
+        with open(self.template_filename, 'rb') as template:
+            stream = xlsx_streaming.stream_queryset_as_xlsx(
+                self.filter_queryset(self.get_queryset()).values_list(),
+                template,
+                batch_size=50
+            )
+        response = StreamingHttpResponse(
+            stream,
+            content_type='application/vnd.xlsxformats-officedocument.spreadsheetml.sheet',
+        )
+        response['Content-Disposition'] = f'attachment; filename={self.filename}'
+        return response
 
 
 class DatasetVersionView(drf_generics.ListAPIView):
