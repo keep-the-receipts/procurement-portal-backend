@@ -6,6 +6,8 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK on
 ENV PYTHONUNBUFFERED 1
 ENV NODE_ENV production
 
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+
 RUN set -ex; \
   apt-get update; \
   # dependencies for building Python packages \
