@@ -9,6 +9,7 @@ from drf_renderer_xlsx.mixins import XLSXFileMixin
 from drf_renderer_xlsx.renderers import XLSXRenderer
 from rest_framework import generics as drf_generics
 import xlsx_streaming
+from openpyxl import load_workbook
 
 from . import models
 from .filters import FacetFieldFilter, FullTextSearchFilter
@@ -17,6 +18,22 @@ from .serializers import (
     DatasetVersionSerializer,
     PurchaseRecordSerializer,
 )
+
+
+class State:
+    __purchase_record_xlsx_fields = None
+
+    @property
+    def purchase_record_xlsx_fields(self):
+        if self.__purchase_record_xlsx_fields is None:
+            wb = load_workbook(filename="template.xlsx")
+            self.__purchase_record_xlsx_fields = []
+            for cell in list(wb.active.iter_rows())[0]:
+                self.__purchase_record_xlsx_fields.append(cell.value.replace(".", "__"))
+        return self.__purchase_record_xlsx_fields
+
+
+state = State()
 
 
 class Index(generic.TemplateView):
@@ -80,6 +97,20 @@ class PurchaseRecordJSONListView(BasePurchaseRecordListView):
         )
 
 
+class PurchaseRecordXLSXTemplateListView(XLSXFileMixin, BasePurchaseRecordListView):
+    renderer_classes = (XLSXRenderer,)
+    pagination_class = None
+    filename = "template.xlsx"
+    queryset = models.PurchaseRecord.objects.prefetch_related(
+        "dataset_version__dataset__repository"
+    )[:1]
+
+    def list(self, request, *args, **kwargs):
+        return super(PurchaseRecordXLSXTemplateListView, self).list(
+            request, *args, **kwargs
+        )
+
+
 class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
     pagination_class = None
     template_filename = "template.xlsx"
@@ -87,17 +118,20 @@ class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
 
     @method_decorator(cache_page(60 * 2))  # cache 2 minutes
     def list(self, request, *args, **kwargs):
-        with open(self.template_filename, 'rb') as template:
+
+        with open(self.template_filename, "rb") as template:
             stream = xlsx_streaming.stream_queryset_as_xlsx(
-                self.filter_queryset(self.get_queryset()).values_list(),
-                template,
-                batch_size=50
+                self.filter_queryset(self.get_queryset()).values_list(
+                    *state.purchase_record_xlsx_fields
+                ),
+                xlsx_template=template,
+                batch_size=50,
             )
         response = StreamingHttpResponse(
             stream,
-            content_type='application/vnd.xlsxformats-officedocument.spreadsheetml.sheet',
+            content_type="application/vnd.xlsxformats-officedocument.spreadsheetml.sheet",
         )
-        response['Content-Disposition'] = f'attachment; filename={self.filename}'
+        response["Content-Disposition"] = f"attachment; filename={self.filename}"
         return response
 
 

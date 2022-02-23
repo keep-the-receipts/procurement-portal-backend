@@ -3,6 +3,7 @@
 
 assets/bundles/
 dataset-uploads/
+template.xlsx
 
 #=====================================================================
 # Django-specific
