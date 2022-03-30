@@ -49,6 +49,7 @@ def file_path(instance, filename):
 
 
 class PurchaseRecord(TimeStampedModel):
+    # Note: When modifying fields, consider `.views.PURCHASE_RECORD_XLSX_FIELDS`
     # Try and keep these as close to
     # https://standard.open-contracting.org/latest/en/schema/release/
     # as possible, bearing in mind that it's trying to be the most
