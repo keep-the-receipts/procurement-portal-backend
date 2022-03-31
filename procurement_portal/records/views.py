@@ -1,12 +1,13 @@
 from django.db.models import F
+from django.http import StreamingHttpResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.decorators.cache import cache_page
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_renderer_xlsx.mixins import XLSXFileMixin
-from drf_renderer_xlsx.renderers import XLSXRenderer
 from rest_framework import generics as drf_generics
+import xlsx_streaming
 
 from . import models
 from .filters import FacetFieldFilter, FullTextSearchFilter
@@ -15,6 +16,58 @@ from .serializers import (
     DatasetVersionSerializer,
     PurchaseRecordSerializer,
 )
+
+
+PURCHASE_RECORD_XLSX_FIELDS = [
+    "supplier_name",
+    "order_amount_zar",
+    "invoice_amount_zar",
+    "payment_amount_zar",
+    "cost_per_unit_zar",
+    "buyer_name",
+    "central_supplier_database_number",
+    "company_registration_number",
+    "director_names",
+    "director_names_and_surnames",
+    "director_surnames",
+    "implementation_location_district_municipality",
+    "implementation_location_facility",
+    "implementation_location_local_municipality",
+    "implementation_location_other",
+    "implementation_location_province",
+    "items_description",
+    "items_quantity",
+    "items_unit",
+    "procurement_method",
+    "state_employee",
+    "award_date",
+    "invoice_date",
+    "invoice_receipt_date",
+    "payment_date",
+    "order_number",
+    "invoice_number",
+    "payment_number",
+    "payment_period",
+    "bbbee_status",
+    "dataset_version__id",
+    "dataset_version__dataset__id",
+    "dataset_version__dataset__created",
+    "dataset_version__dataset__modified",
+    "dataset_version__dataset__name",
+    "dataset_version__dataset__description",
+    "dataset_version__dataset__provenance",
+    "dataset_version__dataset__online_source_url",
+    "dataset_version__dataset__trusted_archive_url",
+    "dataset_version__dataset__repository__id",
+    "dataset_version__dataset__repository__created",
+    "dataset_version__dataset__repository__modified",
+    "dataset_version__dataset__repository__name",
+    "dataset_version__dataset__repository__description",
+    "dataset_version__created",
+    "dataset_version__modified",
+    "dataset_version__description",
+    "dataset_version__file"
+]
 
 
 class Index(generic.TemplateView):
@@ -79,13 +132,27 @@ class PurchaseRecordJSONListView(BasePurchaseRecordListView):
 
 
 class PurchaseRecordXLSXListView(XLSXFileMixin, BasePurchaseRecordListView):
-    renderer_classes = (XLSXRenderer,)
     pagination_class = None
+    template_filename = "template.xlsx"
     filename = "purchase-records.xlsx"
 
     @method_decorator(cache_page(60 * 2))  # cache 2 minutes
     def list(self, request, *args, **kwargs):
-        return super(PurchaseRecordXLSXListView, self).list(request, *args, **kwargs)
+
+        with open(self.template_filename, "rb") as template:
+            stream = xlsx_streaming.stream_queryset_as_xlsx(
+                self.filter_queryset(self.get_queryset()).values_list(
+                    *PURCHASE_RECORD_XLSX_FIELDS
+                ),
+                xlsx_template=template,
+                batch_size=50,
+            )
+        response = StreamingHttpResponse(
+            stream,
+            content_type="application/vnd.xlsxformats-officedocument.spreadsheetml.sheet",
+        )
+        response["Content-Disposition"] = f"attachment; filename={self.filename}"
+        return response
 
 
 class DatasetVersionView(drf_generics.ListAPIView):

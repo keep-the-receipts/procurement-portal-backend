@@ -49,8 +49,7 @@
     "description": "This has some test data with company numbers",
     "provenance": "We totally made this up",
     "online_source_url": "http://www.example.com",
-    "trusted_archive_url": "http://archive.org/web/12345/example.com",
-    "enabled": true
+    "trusted_archive_url": "http://archive.org/web/12345/example.com"
   }
 },
 {
@@ -65,8 +64,7 @@
     "description": "This has only the essential fields",
     "provenance": "We also made this up",
     "online_source_url": "http://www.example.com/other",
-    "trusted_archive_url": "http://this.is/really/important",
-    "enabled": true
+    "trusted_archive_url": "http://this.is/really/important"
   }
 },
 {
@@ -81,8 +79,7 @@
     "description": "This adds the rest of the columns",
     "provenance": "We super made this up",
     "online_source_url": null,
-    "trusted_archive_url": null,
-    "enabled": true
+    "trusted_archive_url": null
   }
 },
 {

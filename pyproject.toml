@@ -25,6 +25,7 @@ psycopg2 = "^2.8.6"
 boto3 = "^1.15.2"
 django-cors-headers = "3.5.0"
 drf-renderer-xlsx = "^0.3.8"
+xlsx_streaming = "^1.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
