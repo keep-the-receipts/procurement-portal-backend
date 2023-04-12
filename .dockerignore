@@ -1,1 +1,17 @@
-dataset-uploads/
+# Don't put unnecessary stuff in the image
+
+# Ignore everything by default
+*
+
+# Explicitly add certain files and directories
+!LICENSE
+!README.md
+!assets/
+!bin/
+!demodata.json
+!manage.py
+!package.json
+!poetry.lock
+!procurement_portal/
+!pyproject.toml
+!yarn.lock
